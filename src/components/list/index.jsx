@@ -6,7 +6,7 @@ import removeSvg from '../../assets/img/remove.svg';
 
 import Badge from '../badge';
 
-import './list.scss';
+import './list.css';
 
 const List = ({
   items,

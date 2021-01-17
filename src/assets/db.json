@@ -47,13 +47,13 @@
     {
       "listId": 4,
       "text": "cdcdc",
-      "completed": false,
+      "completed": true,
       "id": 19
     },
     {
       "listId": 4,
       "text": "sd",
-      "completed": false,
+      "completed": true,
       "id": 20
     },
     {
@@ -67,6 +67,12 @@
       "text": "Задача15",
       "completed": true,
       "id": 23
+    },
+    {
+      "listId": 4,
+      "text": "yj",
+      "completed": false,
+      "id": 24
     }
   ],
   "colors": [

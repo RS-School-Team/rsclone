@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import editSvg from '../../assets/img/edit.svg';
 
-import './tasks.scss';
+import './tasks.css';
 
 import AddTaskForm from './addTaskForm';
 import Task from './task';
