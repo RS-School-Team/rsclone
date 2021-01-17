@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 
-import { List, AddList, Tasks } from './components';
+import { List, AddList, Tasks, CreateTask } from './components';
 
 function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
+  const [activeTask, setActiveTask] = useState(null);
+
+  const [isEditing, setEditing] = useState(false);
+
   let history = useHistory();
   // eslint-disable-next-line no-unused-vars
   let location = useLocation();
@@ -28,6 +32,7 @@ function App() {
   };
 
   const onAddTask = (listId, taskObj) => {
+    setActiveTask(taskObj);
     const newList = lists.map((item) => {
       if (item.id === listId) {
         item.tasks = [...item.tasks, taskObj];
@@ -36,33 +41,39 @@ function App() {
     });
     setLists(newList);
   };
+  const onStartEditTask = (listId, taskObj) => {
+    history.push(`/edit/${taskObj.id}`);
+    setActiveTask(taskObj);
+    console.log(taskObj);
+    setEditing(true);
+  };
 
   const onEditTask = (listId, taskObj) => {
-    const newTaskText = window.prompt('Текст задачи', taskObj.text);
-
-    if (!newTaskText) {
-      return;
-    }
-
+    console.log(taskObj);
     const newList = lists.map((list) => {
       if (list.id === listId) {
         list.tasks = list.tasks.map((task) => {
           if (task.id === taskObj.id) {
-            task.text = newTaskText;
+            task.text = taskObj.text;
+            task.description = taskObj.description;
           }
           return task;
         });
       }
       return list;
     });
+
     setLists(newList);
+
     axios
       .patch('http://localhost:3001/tasks/' + taskObj.id, {
-        text: newTaskText,
+        text: taskObj.text,
+        description: taskObj.description,
       })
       .catch(() => {
         alert('Не удалось обновить задачу');
-      });
+      })
+      .then(() => console.log(lists));
   };
 
   const onRemoveTask = (listId, taskId) => {
@@ -101,7 +112,9 @@ function App() {
         alert('Не удалось обновить задачу');
       });
   };
-
+  const onCancel = () => {
+    setEditing(false);
+  };
   const onEditListTitle = (id, title) => {
     const newList = lists.map((item) => {
       if (item.id === id) {
@@ -144,7 +157,7 @@ function App() {
                   />
                 </svg>
               ),
-              name: 'Все задачи',
+              name: 'All tasks',
             },
           ]}
         />
@@ -167,33 +180,45 @@ function App() {
         <AddList onAdd={onAddList} colors={colors} />
       </div>
       <div className="todo__tasks">
-        <Route exact path="/">
-          {lists &&
-            lists.map((list) => (
-              <Tasks
-                key={list.id}
-                list={list}
-                onAddTask={onAddTask}
-                onEditTitle={onEditListTitle}
-                onRemoveTask={onRemoveTask}
-                onEditTask={onEditTask}
-                onCompleteTask={onCompleteTask}
-                withoutEmpty
-              />
-            ))}
-        </Route>
-        <Route path="/lists/:id">
-          {lists && activeItem && (
-            <Tasks
-              list={activeItem}
-              onAddTask={onAddTask}
-              onEditTitle={onEditListTitle}
-              onRemoveTask={onRemoveTask}
-              onEditTask={onEditTask}
-              onCompleteTask={onCompleteTask}
-            />
-          )}
-        </Route>
+        {!isEditing ? (
+          <React.Fragment>
+            <Route exact path="/">
+              {lists &&
+                lists.map((list) => (
+                  <Tasks
+                    key={list.id}
+                    list={list}
+                    onAddTask={onAddTask}
+                    onStartEditTask={onStartEditTask}
+                    onEditTitle={onEditListTitle}
+                    onRemoveTask={onRemoveTask}
+                    onEditTask={onEditTask}
+                    onCompleteTask={onCompleteTask}
+                    withoutEmpty
+                  />
+                ))}
+            </Route>
+            <Route path="/lists/:id">
+              {lists && activeItem && (
+                <Tasks
+                  list={activeItem}
+                  onStartEditTask={onStartEditTask}
+                  onAddTask={onAddTask}
+                  onEditTitle={onEditListTitle}
+                  onRemoveTask={onRemoveTask}
+                  onEditTask={onEditTask}
+                  onCompleteTask={onCompleteTask}
+                />
+              )}
+            </Route>
+          </React.Fragment>
+        ) : (
+          <CreateTask
+            task={activeTask}
+            onEditTask={onEditTask}
+            onCancel={onCancel}
+          />
+        )}
       </div>
     </div>
   );

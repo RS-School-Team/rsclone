@@ -2,7 +2,12 @@
   &:not(:last-of-type) {
     margin-bottom: 40px;
   }
-
+  &__text {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.4;
+    }
+  }
   a {
     text-decoration: none;
   }

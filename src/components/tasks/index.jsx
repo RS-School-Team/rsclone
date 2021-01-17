@@ -17,6 +17,7 @@ const Tasks = ({
   onEditTask,
   onCompleteTask,
   withoutEmpty,
+  onStartEditTask,
 }) => {
   const editTitle = () => {
     const newTitle = window.prompt('Название списка', list.name);
@@ -53,7 +54,8 @@ const Tasks = ({
               onEdit={onEditTask}
               onRemove={onRemoveTask}
               onComplete={onCompleteTask}
-              {...task}
+              onStartEditTask={onStartEditTask}
+              task={task}
             />
           ))}
         <AddTaskForm key={list.id} list={list} onAddTask={onAddTask} />
