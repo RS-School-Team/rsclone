@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLists } from '../actions/listsActions';
-import { Grid } from '@material-ui/core';
-
+import { getLists, getTask } from '../actions/listsActions';
+import { Divider, Drawer, List, ListItem } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 const SideBar = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists);
@@ -12,15 +12,32 @@ const SideBar = () => {
   }, []);
 
   return (
-    <Grid item xl={12}>
-      {lists.length && (
-        <ul>
-          {lists.map((list) => (
-            <li key={list.id}>{list.name}</li>
-          ))}
-        </ul>
-      )}
-    </Grid>
+    <List component="nav">
+      <NavLink to={`/all_tasks`}>
+        <ListItem button style={{ height: 50 }}>
+          All tasks
+        </ListItem>
+      </NavLink>
+      <Divider />
+      {lists.length &&
+        lists.map((list) => (
+          <NavLink key={list.id} to={`/list/${list.id}`}>
+            <ListItem
+              button
+              style={{ height: 50 }}
+              onClick={() => {
+                dispatch(getTask(list));
+              }}
+            >
+              {list.name}
+            </ListItem>
+          </NavLink>
+        ))}
+      <Divider />
+      <ListItem button style={{ height: 50 }}>
+        Create new list
+      </ListItem>
+    </List>
   );
 };
 
