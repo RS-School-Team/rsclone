@@ -29,6 +29,26 @@
       "name": "Список1",
       "colorId": 1,
       "id": 10
+    },
+    {
+      "name": "asd",
+      "id": 17
+    },
+    {
+      "name": "Test",
+      "id": 18
+    },
+    {
+      "name": "ADD",
+      "id": 19
+    },
+    {
+      "name": "adsa",
+      "id": 20
+    },
+    {
+      "name": "sa",
+      "id": 21
     }
   ],
   "tasks": [
