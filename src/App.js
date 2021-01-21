@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Route, useHistory, useLocation } from 'react-router-dom';
-
+import {connect} from 'react-redux'
 import { List, AddList, Tasks } from './components';
 
-function App() {
-  const [lists, setLists] = useState(null);
-  const [colors, setColors] = useState(null);
+function App({lists, colors, tasks}) {
+  // const [lists, setLists] = useState(null);
+  // const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
   let history = useHistory();
   // eslint-disable-next-line no-unused-vars
   let location = useLocation();
-  useEffect(() => {
+/*  useEffect(() => {
     axios
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
@@ -20,11 +20,11 @@ function App() {
     axios.get('http://localhost:3001/colors').then(({ data }) => {
       setColors(data);
     });
-  }, []);
+  }, []);*/
 
   const onAddList = (obj) => {
     const newList = [...lists, obj];
-    setLists(newList);
+    // setLists(newList);
   };
 
   const onAddTask = (listId, taskObj) => {
@@ -34,7 +34,7 @@ function App() {
       }
       return item;
     });
-    setLists(newList);
+    // setLists(newList);
   };
 
   const onEditTask = (listId, taskObj) => {
@@ -55,7 +55,7 @@ function App() {
       }
       return list;
     });
-    setLists(newList);
+    // setLists(newList);
     axios
       .patch('http://localhost:3001/tasks/' + taskObj.id, {
         text: newTaskText,
@@ -73,7 +73,7 @@ function App() {
         }
         return item;
       });
-      setLists(newList);
+      // setLists(newList);
       axios.delete('http://localhost:3001/tasks/' + taskId).catch(() => {
         alert('Не удалось удалить задачу');
       });
@@ -92,7 +92,7 @@ function App() {
       }
       return list;
     });
-    setLists(newList);
+    // setLists(newList);
     axios
       .patch('http://localhost:3001/tasks/' + taskId, {
         completed,
@@ -109,7 +109,7 @@ function App() {
       }
       return item;
     });
-    setLists(newList);
+    // setLists(newList);
   };
 
   useEffect(() => {
@@ -153,7 +153,7 @@ function App() {
             items={lists}
             onRemove={(id) => {
               const newLists = lists.filter((item) => item.id !== id);
-              setLists(newLists);
+              // setLists(newLists);
             }}
             onClickItem={(list) => {
               history.push(`/lists/${list.id}`);
@@ -199,4 +199,14 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log('state', state)
+  return {
+    lists: state.lists,
+    colors: state.colors,
+    tasks: state.tasks,
+  }
+}
+
+export default connect (mapStateToProps, null)(App)
+// export default App;

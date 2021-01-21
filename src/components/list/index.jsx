@@ -36,6 +36,7 @@ const List = ({
           })}
           onClick={onClickItem ? () => onClickItem(item) : null}
         >
+          {console.log(item, item)}
           <i>{item.icon ? item.icon : <Badge color={item.color.name} />}</i>
           <span>
             {item.name}
