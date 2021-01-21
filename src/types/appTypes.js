@@ -7,3 +7,6 @@ export const TASK_LOADED = 'TASK_LOADED';
 export const CREATE_LIST_OPEN = 'CREATE_LIST_OPEN';
 export const CREATE_LIST_CLOSE = 'CREATE_LIST_CLOSE';
 export const CREATE_NEW_LIST = 'CREATE_NEW_LIST';
+export const DELETE_LIST = 'DELETE_LIST';
+export const EDIT_LIST_OPEN = 'EDIT_LIST_OPEN';
+export const EDIT_LIST_CLOSE = 'EDIT_LIST_CLOSE';

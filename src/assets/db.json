@@ -1,11 +1,6 @@
 {
   "lists": [
     {
-      "name": "Do smth",
-      "colorId": 7,
-      "id": 1
-    },
-    {
       "id": 4,
       "name": "Книги",
       "colorId": 2
@@ -21,11 +16,6 @@
       "id": 8
     },
     {
-      "name": "Test",
-      "colorId": 6,
-      "id": 9
-    },
-    {
       "name": "Список1",
       "colorId": 1,
       "id": 10
@@ -35,7 +25,7 @@
       "id": 17
     },
     {
-      "name": "Test",
+      "name": "Edit time",
       "id": 18
     },
     {
@@ -43,12 +33,16 @@
       "id": 19
     },
     {
-      "name": "adsa",
-      "id": 20
-    },
-    {
       "name": "sa",
       "id": 21
+    },
+    {
+      "name": "Title16",
+      "id": 22
+    },
+    {
+      "name": "New Title",
+      "id": 23
     }
   ],
   "tasks": [
@@ -78,23 +72,10 @@
       "id": 20
     },
     {
-      "listId": 1,
-      "text": "Add task",
-      "completed": false,
-      "id": 21,
-      "description": "`"
-    },
-    {
       "listId": 10,
       "text": "Задача15",
       "completed": true,
       "id": 23
-    },
-    {
-      "listId": 1,
-      "text": "Новая задача",
-      "completed": false,
-      "id": 24
     },
     {
       "listId": 10,
