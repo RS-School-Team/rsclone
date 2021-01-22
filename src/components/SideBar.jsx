@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  deleteList,
-  editListOpen,
-  getLists,
-  getTask,
-  openCreateList,
-} from '../actions/listsActions';
+import {fetchLists} from '../slices/listsSlice'
 import { Box, Divider, Drawer, List, ListItem } from '@material-ui/core';
 import { Link as RouteLink, useHistory, useLocation } from 'react-router-dom';
 import {
@@ -17,15 +11,23 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import {tasksLoaded} from "../slices/tasksSlice";
+import {
+  editListOpen,
+  deleteList,
+  createListOpen,
+
+} from '../slices/listsSlice'
+
 
 const SideBar = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.lists);
 
   useEffect(() => {
-    dispatch(getLists());
+    dispatch(fetchLists());
   }, []);
-  console.log(lists);
+
 
   return (
     <Box overflow="auto" height="90vh">
@@ -44,7 +46,7 @@ const SideBar = () => {
                 button
                 style={{ height: 50 }}
                 onClick={() => {
-                  dispatch(getTask(list));
+                  dispatch(tasksLoaded(list));
                 }}
               >
                 {list.name}
@@ -62,7 +64,7 @@ const SideBar = () => {
                     edge="end"
                     aria-label="delete"
                     onClick={() => {
-                      dispatch(deleteList(list.id, lists));
+                      dispatch(deleteList(list.id));
                     }}
                   >
                     <DeleteIcon />
@@ -75,7 +77,7 @@ const SideBar = () => {
         <ListItem
           button
           style={{ height: 50 }}
-          onClick={() => dispatch(openCreateList())}
+          onClick={() => dispatch(createListOpen())}
         >
           <ListItemIcon>
             <AddIcon color="primary" />

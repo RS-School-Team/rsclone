@@ -6,17 +6,12 @@
       "colorId": 2
     },
     {
-      "id": 5,
-      "name": "Личное",
-      "colorId": 1
-    },
-    {
       "name": "Cgbcr",
       "colorId": 1,
       "id": 8
     },
     {
-      "name": "Список1",
+      "name": "sadf",
       "colorId": 1,
       "id": 10
     },
@@ -29,7 +24,7 @@
       "id": 18
     },
     {
-      "name": "ADD",
+      "name": "qwe",
       "id": 19
     },
     {
@@ -37,12 +32,8 @@
       "id": 21
     },
     {
-      "name": "Title16",
+      "name": "фывафыва",
       "id": 22
-    },
-    {
-      "name": "New Title",
-      "id": 23
     }
   ],
   "tasks": [
@@ -52,12 +43,6 @@
       "completed": true,
       "id": 10,
       "text": "Текст задачи"
-    },
-    {
-      "listId": 5,
-      "text": "cdcd",
-      "completed": false,
-      "id": 18
     },
     {
       "listId": 4,

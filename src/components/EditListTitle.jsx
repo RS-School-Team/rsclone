@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { editList, editListClose } from '../actions/listsActions';
+import {editList, editListClose} from "../slices/listsSlice";
 
 const EditListTitle = () => {
   const isOpen = useSelector((state) => state.lists.isEditListOpen);
@@ -23,7 +23,7 @@ const EditListTitle = () => {
   };
   const onSaveListClicked = () => {
     if (title.trim()) {
-      dispatch(editList(title.trim(), editingList.id, lists));
+      dispatch(editList({title: title.trim(), id: editingList.id}));
       dispatch(editListClose());
     }
   };

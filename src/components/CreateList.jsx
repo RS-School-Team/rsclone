@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addList, closeCreateList } from '../actions/listsActions';
+import {addList, createListClose} from "../slices/listsSlice";
 const CreateList = () => {
   const isOpen = useSelector((state) => state.lists.isCreateListOpen);
   const dispatch = useDispatch();
@@ -20,13 +20,13 @@ const CreateList = () => {
   const onSaveListClicked = () => {
     if (title.trim()) {
       dispatch(addList(title.trim()));
-      dispatch(closeCreateList());
+      dispatch(createListClose());
     }
   };
   return (
     <Dialog
       open={isOpen}
-      onClose={() => dispatch(closeCreateList())}
+      onClose={() => dispatch(createListClose())}
       aria-labelledby="form-dialog-title"
       fullWidth
       align="center"
@@ -48,7 +48,7 @@ const CreateList = () => {
         <Button color="primary" onClick={onSaveListClicked}>
           Save
         </Button>
-        <Button color="secondary" onClick={() => dispatch(closeCreateList())}>
+        <Button color="secondary" onClick={() => dispatch(createListClose())}>
           Cancel
         </Button>
       </DialogActions>
