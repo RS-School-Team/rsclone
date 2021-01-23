@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
 import {CREATE_NEW_LIST} from "../types/appTypes";
 
 const initialState = {
@@ -15,12 +15,14 @@ export const addList = createAsyncThunk(('lists/addList'), async (title) => {
     method: 'POST',
     body: JSON.stringify({
       name: title,
+      tasks: [],
     }),
     headers: {
       'Content-Type': 'application/json',
     },
   });
   const list = await response.json();
+  console.log(list)
   return list;
 })
 
@@ -135,5 +137,6 @@ export const {
   editListClose,
   createNewList,
 } = listSlice.actions
+
 
 export default listSlice.reducer;

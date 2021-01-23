@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import {activeList2} from "../slices/listsSlice";
 
 import { Route, Link as RouteLink, useRouteMatch } from 'react-router-dom';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -21,6 +22,7 @@ const Tasks = ({ match }) => {
       return elem.id === Number(id);
     });
   });
+
   return (
     <React.Fragment>
       <Typography variant="h4" align="center" gutterBottom>
