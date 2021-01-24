@@ -12,9 +12,10 @@ import CreateList from './CreateList';
 import Tasks from './Tasks';
 import EditListTitle from './EditListTitle';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Lists from './Lists';
 import DeleteListDialog from './DeleteListDialog';
+import { fetchLists } from '../slices/listsSlice';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -43,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainContent = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchLists());
+  }, []);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   return (
