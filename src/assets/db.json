@@ -1,11 +1,6 @@
 {
   "lists": [
     {
-      "id": 4,
-      "name": "Книги",
-      "colorId": 2
-    },
-    {
       "name": "Cgbcr",
       "colorId": 1,
       "id": 8
@@ -24,43 +19,12 @@
       "id": 18
     },
     {
-      "name": "qwe",
-      "id": 19
-    },
-    {
-      "name": "sa",
-      "id": 21
-    },
-    {
-      "name": "asd",
-      "id": 22
-    },
-    {
-      "name": "1234",
+      "name": "Lesson 1",
       "tasks": [],
-      "id": 23
+      "id": 20
     }
   ],
   "tasks": [
-    {
-      "listId": 4,
-      "title": "Купить 1984!",
-      "completed": true,
-      "id": 10,
-      "text": "Текст задачи"
-    },
-    {
-      "listId": 4,
-      "text": "cdcdc",
-      "completed": false,
-      "id": 19
-    },
-    {
-      "listId": 4,
-      "text": "sd",
-      "completed": false,
-      "id": 20
-    },
     {
       "listId": 10,
       "text": "Задача15",

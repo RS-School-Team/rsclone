@@ -1,92 +1,40 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {fetchLists} from '../slices/listsSlice'
-import { Box, Divider, Drawer, List, ListItem } from '@material-ui/core';
-import { Link as RouteLink, useHistory, useLocation } from 'react-router-dom';
-import {
-  IconButton,
-  ListItemSecondaryAction,
-  ListItemIcon,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
-import {tasksLoaded} from "../slices/tasksSlice";
-import {
-  editListOpen,
-  deleteList,
-  createListOpen,
-
-} from '../slices/listsSlice'
-
-
-const SideBar = () => {
+import React from 'react';
+import { Divider, Drawer, IconButton, List, ListItem } from '@material-ui/core';
+import { Link as RouteLink } from 'react-router-dom';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { closeMenu } from '../slices/appSlice';
+const useStyles = makeStyles((theme) => ({
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+}));
+const Sidebar = () => {
+  const isOpen = useSelector((state) => state.app.isMenuOpen);
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.lists.lists);
-
-  useEffect(() => {
-    dispatch(fetchLists());
-  }, []);
-
-
+  const classes = useStyles();
   return (
-    <Box overflow="auto" height="90vh">
+    <Drawer variant="persistent" anchor="left" open={isOpen}>
+      <div className={classes.drawerHeader}>
+        <IconButton color="primary" onClick={() => dispatch(closeMenu())}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </div>
+      <Divider />
       <List component="nav">
         <RouteLink to={`/all_tasks`}>
-          <ListItem button style={{ height: 50 }}>
+          <ListItem button style={{ height: 50, width: 320 }}>
             All tasks
           </ListItem>
         </RouteLink>
-        <Divider />
-        {lists.length &&
-          lists.map((list) => (
-            <RouteLink key={list.id} to={`/list/${list.id}`}>
-              <ListItem
-                key={list.id}
-                button
-                style={{ height: 50 }}
-                onClick={() => {
-                  dispatch(tasksLoaded(list));
-                }}
-              >
-                {list.name}
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="start"
-                    aria-label="edit"
-                    onClick={() => {
-                      dispatch(editListOpen(list, lists));
-                    }}
-                  >
-                    <EditIcon color="primary" />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => {
-                      dispatch(deleteList(list.id));
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </RouteLink>
-          ))}
-        <Divider />
-        <ListItem
-          button
-          style={{ height: 50 }}
-          onClick={() => dispatch(createListOpen())}
-        >
-          <ListItemIcon>
-            <AddIcon color="primary" />
-          </ListItemIcon>
-          Create new list
-        </ListItem>
       </List>
-    </Box>
+    </Drawer>
   );
 };
 
-export default SideBar;
+export default Sidebar;
