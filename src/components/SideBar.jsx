@@ -28,7 +28,11 @@ const Sidebar = () => {
       <Divider />
       <List component="nav">
         <RouteLink to={`/all_tasks`}>
-          <ListItem button style={{ height: 50, width: 320 }}>
+          <ListItem
+            button
+            style={{ height: 50, width: 320 }}
+            onClick={() => dispatch(closeMenu())}
+          >
             All tasks
           </ListItem>
         </RouteLink>

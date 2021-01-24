@@ -47,9 +47,6 @@ const Lists = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.lists);
   const classes = useStyles();
-  useEffect(() => {
-    dispatch(fetchLists());
-  }, []);
 
   return (
     <Box overflow="auto" height="90vh">

@@ -22,11 +22,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 200,
+    height: 150,
     width: 200,
   },
   addCard: {
-    height: 200,
+    height: 150,
     width: 200,
     display: 'flex',
     justifyContent: 'center',

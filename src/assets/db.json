@@ -22,6 +22,11 @@
       "name": "Lesson 1",
       "tasks": [],
       "id": 20
+    },
+    {
+      "name": "New Lesson",
+      "tasks": [],
+      "id": 21
     }
   ],
   "tasks": [
