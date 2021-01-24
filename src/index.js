@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import { store } from './app/store';
-import store from './slices/store'
+import store from './slices/store.ts'
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 

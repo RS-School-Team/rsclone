@@ -9,12 +9,13 @@ import {
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {addList, createListClose} from "../slices/listsSlice";
+import {addList, createListClose}  from '../slices/listsSlice'
+import {RootState} from "../slices/store";
 const CreateList = () => {
-  const isOpen = useSelector((state) => state.lists.isCreateListOpen);
+  const isOpen = useSelector((state: RootState) => state.lists.isCreateListOpen);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     setTitle(e.target.value);
   };
   const onSaveListClicked = () => {

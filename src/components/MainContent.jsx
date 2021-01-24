@@ -7,9 +7,10 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import CreateList from './CreateList';
+
+import CreateList from './CreateList.tsx';
 import Tasks from './Tasks';
-import EditListTitle from './EditListTitle';
+import EditListTitle from './EditListTitle.rsx';
 
 const MainContent = () => {
   return (

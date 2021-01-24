@@ -1,5 +1,4 @@
-import {createAsyncThunk, createSlice, createSelector } from "@reduxjs/toolkit";
-import {CREATE_NEW_LIST} from "../types/appTypes";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
   lists: [],
@@ -10,7 +9,9 @@ const initialState = {
   error: null,
 };
 
-export const addList = createAsyncThunk(('lists/addList'), async (title) => {
+export const addList = createAsyncThunk(
+  ('lists/addList'),
+  async (title: string) => {
   const response = await fetch('http://localhost:3005/lists', {
     method: 'POST',
     body: JSON.stringify({
@@ -22,7 +23,6 @@ export const addList = createAsyncThunk(('lists/addList'), async (title) => {
     },
   });
   const list = await response.json();
-  console.log(list)
   return list;
 })
 
@@ -59,7 +59,7 @@ const listSlice = createSlice({
     createListOpen(state, action) {
       state.isCreateListOpen = true
     },
-    createListClose(state, action) {
+    createListClose(state) {
       state.isCreateListOpen = false
     },
     editListOpen(state, action) {

@@ -2,7 +2,7 @@ import { Container, Divider, Grid } from '@material-ui/core';
 import React from 'react';
 import MainContent from './components/MainContent.jsx';
 import SideBar from './components/SideBar.jsx';
-import Header from './components/Header';
+import Header from './components/Header.rsx';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 function App() {
   return (

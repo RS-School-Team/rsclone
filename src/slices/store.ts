@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
-import taskReducer from "../slices/tasksSlice";
-import listsReducer from "../slices/listsSlice";
+import taskReducer from "./tasksSlice";
+import listsReducer from "./listsSlice";
 
 export default configureStore({
   reducer: {
@@ -8,3 +8,4 @@ export default configureStore({
     lists: listsReducer,
   },
 })
+export type RootState = ReturnType<typeof store.getState>

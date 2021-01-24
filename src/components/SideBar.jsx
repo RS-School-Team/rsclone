@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchLists} from '../slices/listsSlice'
-import { Box, Divider, Drawer, List, ListItem } from '@material-ui/core';
-import { Link as RouteLink, useHistory, useLocation } from 'react-router-dom';
+import { Box, Divider, List, ListItem } from '@material-ui/core';
+import { Link as RouteLink } from 'react-router-dom';
 import {
   IconButton,
   ListItemSecondaryAction,
