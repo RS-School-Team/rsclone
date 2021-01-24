@@ -14,6 +14,10 @@ const DeleteListDialog = () => {
   const isOpen = useSelector((state) => state.lists.isDeleteListOpen);
   const lists = useSelector((state) => state.lists.lists);
   const { id, name } = useSelector((state) => state.lists.deletingList);
+  const handleDelete = (id, lists) => {
+    dispatch(deleteListClose());
+    dispatch(deleteList(id, lists));
+  };
   return (
     <Dialog
       open={isOpen}
@@ -27,10 +31,7 @@ const DeleteListDialog = () => {
         You will not be able to use this list anymore
       </DialogContent>
       <DialogActions>
-        <Button
-          color="secondary"
-          onClick={() => dispatch(deleteList(id, lists))}
-        >
+        <Button color="secondary" onClick={() => handleDelete(id, lists)}>
           Delete
         </Button>
         <Button

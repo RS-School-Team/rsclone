@@ -13,9 +13,10 @@ import Tasks from './Tasks';
 import EditListTitle from './EditListTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import Lists from './Lists';
+import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
 import { fetchLists } from '../slices/listsSlice';
+import LoginModal from './LoginModal';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -51,7 +52,7 @@ const MainContent = () => {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   return (
-    <Box p={2} overflow="auto" height="86vh">
+    <Box p={2} overflow="auto" height="94vh">
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: isMenuOpen,
@@ -59,13 +60,14 @@ const MainContent = () => {
       >
         <div className={classes.drawerHeader} />
         <Switch>
-          <Route exact path="/all_tasks" component={Lists} />
+          <Route exact path="/all_projects" component={Projects} />
 
           <Route exact path="/list/:id" component={Tasks} />
         </Switch>
         <CreateList />
         <EditListTitle />
         <DeleteListDialog />
+        <LoginModal />
       </main>
     </Box>
   );

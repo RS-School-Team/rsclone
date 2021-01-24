@@ -31,9 +31,7 @@ export const addList = createAsyncThunk('lists/addList', async (title) => {
 });
 
 export const fetchLists = createAsyncThunk('lists/fetchLists', async () => {
-  const response = await fetch(
-    'http://localhost:3005/lists?_expand-color&_embed=tasks'
-  );
+  const response = await fetch('http://localhost:3005/lists?_embed=tasks');
   const data = await response.json();
   return data;
 });

@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { openMenu } from '../slices/appSlice';
+import { openLogin } from '../slices/headerSlice';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
+  const isLogin = useSelector((state) => state.header.isLogin);
   const dispatch = useDispatch();
   return (
     <div>
@@ -59,9 +61,11 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            All Tasks
+            All Projects
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={() => dispatch(openLogin())} color="inherit">
+            {isLogin ? 'Logout' : 'Login'}
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

@@ -6,11 +6,6 @@
       "id": 8
     },
     {
-      "name": "123",
-      "colorId": 1,
-      "id": 10
-    },
-    {
       "name": "asd",
       "id": 17
     },
@@ -19,31 +14,28 @@
       "id": 18
     },
     {
-      "name": "Lesson 1",
-      "tasks": [],
-      "id": 20
-    },
-    {
       "name": "New Lesson",
       "tasks": [],
       "id": 21
-    }
-  ],
-  "tasks": [
-    {
-      "listId": 10,
-      "text": "Задача15",
-      "completed": true,
-      "id": 23
     },
     {
-      "listId": 10,
-      "text": "Ntrc",
-      "completed": false,
+      "name": "s",
+      "tasks": [],
+      "id": 22
+    },
+    {
+      "name": "weqdfqerfref",
+      "tasks": [],
+      "id": 24
+    },
+    {
+      "name": "erfsdfcvfd",
+      "tasks": [],
       "id": 25
     }
   ],
-  "colors": [
+  "tasks": [],
+  "comments": [
     {
       "id": 1,
       "hex": "#C9D1D3",

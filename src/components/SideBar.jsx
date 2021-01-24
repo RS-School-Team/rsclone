@@ -27,13 +27,23 @@ const Sidebar = () => {
       </div>
       <Divider />
       <List component="nav">
-        <RouteLink to={`/all_tasks`}>
+        <RouteLink to={`/all_projects`}>
           <ListItem
             button
             style={{ height: 50, width: 320 }}
             onClick={() => dispatch(closeMenu())}
           >
-            All tasks
+            All projects
+          </ListItem>
+        </RouteLink>
+
+        <RouteLink to={`/user-id`}>
+          <ListItem
+            button
+            style={{ height: 50, width: 320 }}
+            onClick={() => dispatch(closeMenu())}
+          >
+            Your account
           </ListItem>
         </RouteLink>
       </List>
