@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteList,
+  deleteListOpen,
   editListOpen,
   getLists,
   getTask,
@@ -21,11 +22,10 @@ import AddIcon from '@material-ui/icons/Add';
 const SideBar = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.lists);
-
+  const history = useHistory();
   useEffect(() => {
     dispatch(getLists());
   }, []);
-  console.log(lists);
 
   return (
     <Box overflow="auto" height="90vh">
@@ -62,7 +62,7 @@ const SideBar = () => {
                     edge="end"
                     aria-label="delete"
                     onClick={() => {
-                      dispatch(deleteList(list.id, lists));
+                      dispatch(deleteListOpen(list));
                     }}
                   >
                     <DeleteIcon />

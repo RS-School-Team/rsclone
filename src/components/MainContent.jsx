@@ -10,14 +10,22 @@ import {
 import CreateList from './CreateList';
 import Tasks from './Tasks';
 import EditListTitle from './EditListTitle';
+import CreateNewTask from './CreateNewTask';
+import DeleteListDialog from './DeleteListDialog';
 
 const MainContent = () => {
   return (
     <Box p={2} overflow="auto" height="86vh">
+      <DeleteListDialog />
       <CreateList />
       <EditListTitle />
       <Switch>
         <Route exact path="/list/:id" component={Tasks} />
+        <Route
+          exact
+          path="/list/:id/create-new-task"
+          component={CreateNewTask}
+        />
       </Switch>
     </Box>
   );

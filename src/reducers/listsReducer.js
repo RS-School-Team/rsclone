@@ -5,13 +5,17 @@ import {
   CREATE_LIST_CLOSE,
   EDIT_LIST_OPEN,
   EDIT_LIST_CLOSE,
+  DELETE_LIST_CLOSE,
+  DELETE_LIST_OPEN,
 } from '../types/appTypes';
 
 const initialState = {
   lists: [],
   isCreateListOpen: false,
   isEditListOpen: false,
+  isDeleteListOpen: false,
   editingList: {},
+  deletingList: {},
 };
 
 export const listsReducer = (state = initialState, { type, payload }) => {
@@ -28,6 +32,10 @@ export const listsReducer = (state = initialState, { type, payload }) => {
       return { ...state, isEditListOpen: true, editingList: payload };
     case EDIT_LIST_CLOSE:
       return { ...state, isEditListOpen: false };
+    case DELETE_LIST_OPEN:
+      return { ...state, isDeleteListOpen: true, deletingList: payload };
+    case DELETE_LIST_CLOSE:
+      return { ...state, isDeleteListOpen: false };
     default:
       return state;
   }

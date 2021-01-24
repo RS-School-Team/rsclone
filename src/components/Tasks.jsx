@@ -15,6 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import AddIcon from '@material-ui/icons/Add';
 
 const Tasks = ({ match }) => {
+  let matchPath = useRouteMatch();
   const { id } = match.params;
   const [activeList] = useSelector((state) => {
     return state.lists.lists.filter((elem) => {
@@ -53,7 +54,7 @@ const Tasks = ({ match }) => {
               </ListItem>
             );
           })}
-          <RouteLink to={`/create-new-task`}>
+          <RouteLink to={`${matchPath.url}/create-new-task`}>
             <ListItem button style={{ height: 50 }}>
               <ListItemIcon>
                 <AddIcon color="primary" />

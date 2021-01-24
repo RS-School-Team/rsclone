@@ -8,6 +8,8 @@ import {
   CREATE_NEW_LIST,
   EDIT_LIST_CLOSE,
   EDIT_LIST_OPEN,
+  DELETE_LIST_OPEN,
+  DELETE_LIST_CLOSE,
 } from '../types/appTypes';
 
 export function showLoader() {
@@ -65,6 +67,17 @@ export function editListClose() {
     type: EDIT_LIST_CLOSE,
   };
 }
+export function deleteListOpen(list) {
+  return {
+    type: DELETE_LIST_OPEN,
+    payload: list,
+  };
+}
+export function deleteListClose() {
+  return {
+    type: DELETE_LIST_CLOSE,
+  };
+}
 
 export function addList(listTitle) {
   return async (dispatch) => {
@@ -73,6 +86,7 @@ export function addList(listTitle) {
         method: 'POST',
         body: JSON.stringify({
           name: listTitle,
+          tasks: [],
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -95,6 +109,7 @@ export function deleteList(id, lists) {
       });
       const newLists = lists.filter((list) => list.id !== Number(id));
       dispatch({ type: LISTS_LOADED, payload: newLists });
+      dispatch(deleteListClose());
     } catch (err) {
       console.log(err);
     }
