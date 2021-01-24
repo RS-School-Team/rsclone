@@ -10,10 +10,12 @@ import {
 import CreateList from './CreateList';
 import Tasks from './Tasks';
 import EditListTitle from './EditListTitle';
+import LoginModal from "./LoginModal";
 
 const MainContent = () => {
   return (
     <Box p={2} overflow="auto" height="86vh">
+      <LoginModal />
       <CreateList />
       <EditListTitle />
       <Switch>

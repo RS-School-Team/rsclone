@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useSelector, useDispatch } from 'react-redux';
+import { openLogin } from '../slices/headerSlice'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ButtonAppBar() {
+  const isLogin = useSelector((state) => state.header.isLogin)
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -38,7 +41,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             All Tasks
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={() => dispatch(openLogin())}  color="inherit">{isLogin? 'Logout' : 'Login'}</Button>
         </Toolbar>
       </AppBar>
     </div>
