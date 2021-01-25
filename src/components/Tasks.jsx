@@ -1,18 +1,11 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  IconButton,
-} from '@material-ui/core';
+import { Card, CardContent, Grid, IconButton } from '@material-ui/core';
 
-import { Link as RouteLink } from 'react-router-dom';
+import { Link as RouteLink, useRouteMatch } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
-import { tasksLoaded } from '../slices/tasksSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    borderRadius: 20,
   },
   addCard: {
     height: 150,
@@ -28,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 20,
   },
   addCardBtn: {
     borderRadius: '50%',
@@ -36,16 +31,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tasks = ({ match }) => {
+const Tasks = () => {
   const classes = useStyles();
-  const { url } = match;
-  const { id } = match.params;
+  const { url, params } = useRouteMatch();
+  const id = Number(params.id);
   const [activeList] = useSelector((state) => {
     return state.lists.lists.filter((elem) => {
       return elem.id === Number(id);
     });
   });
-  const dispatch = useDispatch();
   return (
     <React.Fragment>
       <Typography
@@ -89,11 +83,7 @@ const Tasks = ({ match }) => {
           <Grid item>
             <Card className={classes.addCard} variant="outlined">
               <RouteLink to={`${url}/create-new-task`}>
-                <IconButton
-                  size="medium"
-                  color="primary"
-                  onClick={() => dispatch(tasksLoaded(activeList))}
-                >
+                <IconButton size="medium" color="primary">
                   <AddIcon className={classes.addCardBtn} />
                 </IconButton>
               </RouteLink>

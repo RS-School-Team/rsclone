@@ -1,38 +1,46 @@
-import { Button, TextField, Typography, Box } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { Link as RouteLink } from 'react-router-dom';
+import { deleteTaskOpen } from '../slices/listsSlice';
 
 const Task = () => {
   const { url, params } = useRouteMatch();
+  const dispatch = useDispatch();
   const [listId] = url.match(/(?<=project\/)([\S]+?)(?=\/)/);
   const taskId = Number(params.id);
-  const activeList = useSelector((state) => {
+  let activeList = useSelector((state) => {
     return state.lists.lists.find((elem) => {
       return elem.id === Number(listId);
     });
   });
-  const task = activeList.tasks.find((task) => task.id === taskId);
-  console.log(task);
+  let task;
+  if (activeList) {
+    task = activeList.tasks.find((task) => task.id === taskId);
+  }
   return (
     <React.Fragment>
-      <Button
-        variant="contained"
-        size="large"
-        color="primary"
-        style={{ margin: 8 }}
-        startIcon={<EditIcon />}
-      >
-        Edit
-      </Button>
+      <RouteLink to={`${url}/edit`}>
+        <Button
+          variant="contained"
+          size="large"
+          color="primary"
+          style={{ margin: 8 }}
+          startIcon={<EditIcon />}
+        >
+          Edit
+        </Button>
+      </RouteLink>
       <Button
         variant="contained"
         size="large"
         color="secondary"
         style={{ margin: 8 }}
         startIcon={<DeleteIcon />}
+        onClick={() => dispatch(deleteTaskOpen(task))}
       >
         Delete
       </Button>

@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
-import { Box, Typography } from '@material-ui/core';
-import {
-  Route,
-  Link as RouteLink,
-  useRouteMatch,
-  Switch,
-} from 'react-router-dom';
+import { Box } from '@material-ui/core';
+import { Route, Switch } from 'react-router-dom';
 import clsx from 'clsx';
 
 import CreateList from './CreateList';
@@ -15,10 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
-import { fetchLists } from '../slices/listsSlice';
 import LoginModal from './LoginModal';
 import Task from './Task';
 import CreateNewTask from './CreateNewTask';
+import EditTask from './EditTask';
+import { fetchLists } from '../slices/listsSlice';
+import DeleteTaskDialog from './DeleteTaskDialog';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -70,10 +67,16 @@ const MainContent = () => {
             component={CreateNewTask}
           />
           <Route exact path="/project/:id/tasks/:id" component={Task} />
+          <Route
+            exact
+            path="/project/:id/tasks/:id/edit"
+            component={EditTask}
+          />
         </Switch>
         <CreateList />
         <EditListTitle />
         <DeleteListDialog />
+        <DeleteTaskDialog />
         <LoginModal />
       </main>
     </Box>

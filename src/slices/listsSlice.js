@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  createSelector,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   lists: [],
@@ -13,6 +9,8 @@ const initialState = {
   error: null,
   isDeleteListOpen: false,
   deletingList: {},
+  isDeleteTaskOpen: false,
+  deletingTask: {},
 };
 
 export const addList = createAsyncThunk('lists/addList', async (title) => {
@@ -69,6 +67,34 @@ export const addTask = createAsyncThunk('lists/addTask', async (task) => {
   const newTask = await response.json();
   return newTask;
 });
+
+export const editTask = createAsyncThunk(
+  'lists/editTask',
+  async ({ id, title, description }) => {
+    const response = await fetch('http://localhost:3005/tasks/' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        title: title,
+        description: description,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const newTask = await response.json();
+    console.log(newTask);
+    return newTask;
+  }
+);
+export const deleteTask = createAsyncThunk(
+  'lists/deleteTask',
+  async ({ id, listId }) => {
+    const response = await fetch('http://localhost:3005/tasks/' + Number(id), {
+      method: 'DELETE',
+    });
+    return { id, listId };
+  }
+);
 const listSlice = createSlice({
   name: 'lists',
   initialState,
@@ -95,6 +121,13 @@ const listSlice = createSlice({
     },
     deleteListClose(state, action) {
       state.isDeleteListOpen = false;
+    },
+    deleteTaskOpen(state, action) {
+      state.isDeleteTaskOpen = true;
+      state.deletingTask = action.payload;
+    },
+    deleteTaskClose(state, action) {
+      state.isDeleteTaskOpen = false;
     },
   },
   extraReducers: {
@@ -154,6 +187,7 @@ const listSlice = createSlice({
       state.status = 'loading';
     },
     [addTask.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
       const task = action.payload;
       const newLists = state.lists.map((list) => {
         if (list.id === task.id) {
@@ -162,9 +196,51 @@ const listSlice = createSlice({
         return list;
       });
       state.lists = newLists;
-      fetchLists();
     },
     [addTask.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
+    [editTask.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [editTask.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
+      const newTask = action.payload;
+      const newLists = state.lists.map((list) => {
+        if (list.id === newTask.listId) {
+          list.tasks.map((task) => {
+            if (task.id === newTask.id) {
+              task.title = newTask.title;
+              task.description = newTask.description;
+            }
+            return task;
+          });
+        }
+        return list;
+      });
+      state.lists = newLists;
+    },
+    [editTask.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
+    [deleteTask.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [deleteTask.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
+      const { id, listId } = action.payload;
+      const newLists = state.lists.map((list) => {
+        if (Number(listId) === list.id) {
+          const tasks = list.tasks.filter((task) => task.id !== Number(id));
+          list.tasks = tasks;
+        }
+        return list;
+      });
+      state.lists = newLists;
+    },
+    [deleteTask.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.payload;
     },
@@ -179,6 +255,8 @@ export const {
   createNewList,
   deleteListClose,
   deleteListOpen,
+  deleteTaskOpen,
+  deleteTaskClose,
 } = listSlice.actions;
 
 export default listSlice.reducer;

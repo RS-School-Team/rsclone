@@ -1,22 +1,26 @@
-import { TextField, Typography, Box, Button } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { addTask } from '../slices/listsSlice';
 import { useHistory } from 'react-router-dom';
-
-const CreateNewTask = () => {
-  const history = useHistory();
-  let { url } = useRouteMatch();
-  const [id] = url.match(/(?<=project\/)([\S]+?)(?=\/)/);
+import { editTask } from '../slices/listsSlice';
+const EditTask = () => {
   const dispatch = useDispatch();
-  const [activeList] = useSelector((state) => {
-    return state.lists.lists.filter((elem) => {
-      return elem.id === Number(id);
+  const history = useHistory();
+  const { url, params } = useRouteMatch();
+  const [listId] = url.match(/(?<=project\/)([\S]+?)(?=\/)/);
+  const taskId = Number(params.id);
+  const activeList = useSelector((state) => {
+    return state.lists.lists.find((elem) => {
+      return elem.id === Number(listId);
     });
   });
+  let task;
+  if (activeList) {
+    task = activeList.tasks.find((task) => task.id === taskId);
+  }
   let title, description;
   const handleChandeTitle = (event) => {
     title = event.target.value;
@@ -25,16 +29,36 @@ const CreateNewTask = () => {
     description = event.target.value;
   };
   const handleClose = () => {
-    history.push(`${url.replace('/create-new-task', '')}`);
+    history.push(`${url.replace('/edit', '')}`);
   };
   const handleSaveClick = () => {
-    dispatch(addTask({ title, description, listId: Number(id) }));
+    dispatch(editTask({ title, description, id: taskId }));
     handleClose();
   };
   return (
     <React.Fragment>
+      <Button
+        variant="contained"
+        size="large"
+        color="primary"
+        style={{ margin: 8 }}
+        startIcon={<SaveIcon />}
+        onClick={() => handleSaveClick()}
+      >
+        Save
+      </Button>
+      <Button
+        variant="contained"
+        size="large"
+        color="secondary"
+        style={{ margin: 8 }}
+        startIcon={<CancelIcon />}
+        onClick={() => handleClose()}
+      >
+        Cancel
+      </Button>
       <Typography variant="h4" align="center" gutterBottom>
-        Create new task in {activeList && activeList.name} project
+        Edit task {task && task.title}
       </Typography>
       <form noValidate autoComplete="off">
         <TextField
@@ -45,6 +69,7 @@ const CreateNewTask = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          defaultValue={task && task.title}
           onChange={handleChandeTitle}
         />
         <TextField
@@ -57,33 +82,15 @@ const CreateNewTask = () => {
           multiline
           rows={8}
           variant="outlined"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          defaultValue={task && task.description}
           onChange={handleChandeDescription}
         />
       </form>
-      <Box align="center">
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<SaveIcon />}
-          size="large"
-          style={{ marginRight: 8 }}
-          onClick={handleSaveClick}
-        >
-          Save
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<CancelIcon />}
-          size="large"
-          style={{ margin: 8 }}
-          onClick={() => handleClose()}
-        >
-          Cancel
-        </Button>
-      </Box>
     </React.Fragment>
   );
 };
 
-export default CreateNewTask;
+export default EditTask;

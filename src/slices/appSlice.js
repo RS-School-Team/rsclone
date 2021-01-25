@@ -1,15 +1,11 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  createSelector,
-} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isMenuOpen: false,
 };
 
 const appSlice = createSlice({
-  name: 'tasks',
+  name: 'app',
   initialState,
   reducers: {
     openMenu(state, action) {
