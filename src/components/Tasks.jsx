@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import {
@@ -7,23 +7,20 @@ import {
   CardContent,
   Grid,
   IconButton,
-  List,
-  ListItem,
-  ListItemSecondaryAction,
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import { activeList2, fetchLists } from '../slices/listsSlice';
 
-import { Route, Link as RouteLink, useRouteMatch } from 'react-router-dom';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { Link as RouteLink } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import { tasksLoaded } from '../slices/tasksSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: 150,
     width: 200,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   addCard: {
     height: 150,
@@ -41,17 +38,21 @@ const useStyles = makeStyles((theme) => ({
 
 const Tasks = ({ match }) => {
   const classes = useStyles();
+  const { url } = match;
   const { id } = match.params;
-
   const [activeList] = useSelector((state) => {
     return state.lists.lists.filter((elem) => {
       return elem.id === Number(id);
     });
   });
-
+  const dispatch = useDispatch();
   return (
     <React.Fragment>
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography
+        variant="h4"
+        align="center"
+        style={{ marginTop: 40, marginBottom: 50 }}
+      >
         {activeList && activeList.name}
       </Typography>
       {activeList && activeList.tasks && !activeList.tasks.length && (
@@ -70,36 +71,16 @@ const Tasks = ({ match }) => {
             return (
               <Grid item key={task.id}>
                 <Card className={classes.root} variant="outlined">
-                  <RouteLink key={task.id} to={`/tasks/${task.id}`}>
+                  <RouteLink key={task.id} to={`${url}/${task.id}`}>
                     <CardContent>
                       <Typography
-                        variant="body2"
-                        gutterBottom
-                        color="textSecondary"
-                      >
-                        Task name:
-                      </Typography>
-                      <Typography
                         variant="h5"
-                        gutterBottom
                         align="center"
                         style={{ fontWeight: '500' }}
                       >
-                        {task.text}
+                        {task.title}
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      <IconButton
-                        size="small"
-                        aria-label="edit"
-                        color="primary"
-                      >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton size="small" aria-label="delete">
-                        <DeleteIcon />
-                      </IconButton>
-                    </CardActions>
                   </RouteLink>
                 </Card>
               </Grid>
@@ -107,8 +88,12 @@ const Tasks = ({ match }) => {
           })}
           <Grid item>
             <Card className={classes.addCard} variant="outlined">
-              <RouteLink to={`/create-new-task`}>
-                <IconButton size="medium" color="primary">
+              <RouteLink to={`${url}/create-new-task`}>
+                <IconButton
+                  size="medium"
+                  color="primary"
+                  onClick={() => dispatch(tasksLoaded(activeList))}
+                >
                   <AddIcon className={classes.addCardBtn} />
                 </IconButton>
               </RouteLink>

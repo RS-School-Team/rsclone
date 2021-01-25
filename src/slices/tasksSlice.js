@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   activeList: {},
@@ -9,11 +9,11 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     tasksLoaded(state, action) {
-      state.activeList = action.payload
-    }
-  }
-})
+      state.activeList = action.payload;
+    },
+  },
+});
 
-export const {tasksLoaded} = tasksSlice.actions
+export const { tasksLoaded } = tasksSlice.actions;
 
-export default tasksSlice.reducer
+export default tasksSlice.reducer;

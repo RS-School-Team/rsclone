@@ -58,7 +58,17 @@ export const editList = createAsyncThunk(
     return { title, id };
   }
 );
-
+export const addTask = createAsyncThunk('lists/addTask', async (task) => {
+  const response = await fetch('http://localhost:3005/tasks', {
+    method: 'POST',
+    body: JSON.stringify(task),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const newTask = await response.json();
+  return newTask;
+});
 const listSlice = createSlice({
   name: 'lists',
   initialState,
@@ -117,7 +127,6 @@ const listSlice = createSlice({
     },
     [editList.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      console.log(action.payload);
       const { title, id } = action.payload;
       const newLists = state.lists.map((list) => {
         if (list.id === id) {
@@ -138,6 +147,24 @@ const listSlice = createSlice({
       state.lists.push(action.payload);
     },
     [addList.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
+    [addTask.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [addTask.fulfilled]: (state, action) => {
+      const task = action.payload;
+      const newLists = state.lists.map((list) => {
+        if (list.id === task.id) {
+          list.tasks.push(task);
+        }
+        return list;
+      });
+      state.lists = newLists;
+      fetchLists();
+    },
+    [addTask.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.payload;
     },

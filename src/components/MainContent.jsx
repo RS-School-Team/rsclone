@@ -17,6 +17,8 @@ import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
 import { fetchLists } from '../slices/listsSlice';
 import LoginModal from './LoginModal';
+import Task from './Task';
+import CreateNewTask from './CreateNewTask';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -61,8 +63,13 @@ const MainContent = () => {
         <div className={classes.drawerHeader} />
         <Switch>
           <Route exact path="/all_projects" component={Projects} />
-
-          <Route exact path="/list/:id" component={Tasks} />
+          <Route exact path="/project/:id/tasks" component={Tasks} />
+          <Route
+            exact
+            path="/project/:id/tasks/create-new-task"
+            component={CreateNewTask}
+          />
+          <Route exact path="/project/:id/tasks/:id" component={Task} />
         </Switch>
         <CreateList />
         <EditListTitle />
