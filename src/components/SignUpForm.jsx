@@ -59,6 +59,12 @@ const SignUpForm = () => {
     history.push("/signIn");
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    console.log (formData.get('email'), formData.get('password'))
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline/>
@@ -66,7 +72,7 @@ const SignUpForm = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
