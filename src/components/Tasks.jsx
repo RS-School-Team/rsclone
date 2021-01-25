@@ -1,11 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { Card, CardContent, Grid, IconButton } from '@material-ui/core';
 
 import { Link as RouteLink, useRouteMatch } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import { fetchLists } from '../slices/listsSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Tasks = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { url, params } = useRouteMatch();
   const id = Number(params.id);
@@ -40,6 +42,9 @@ const Tasks = () => {
       return elem.id === Number(id);
     });
   });
+  useEffect(() => {
+    dispatch(fetchLists());
+  }, []);
   return (
     <React.Fragment>
       <Typography
