@@ -17,6 +17,8 @@ import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
 import { fetchLists } from '../slices/listsSlice';
 import LoginModal from './LoginModal';
+import SignUpForm from "./SignUpForm";
+import SignInForm from "./SignInForm";
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -61,13 +63,13 @@ const MainContent = () => {
         <div className={classes.drawerHeader} />
         <Switch>
           <Route exact path="/all_projects" component={Projects} />
-
           <Route exact path="/list/:id" component={Tasks} />
+          <Route exact path="/signUp" component={SignUpForm} />
+          <Route exact path="/signIn" component={SignInForm} />
         </Switch>
         <CreateList />
         <EditListTitle />
         <DeleteListDialog />
-        <LoginModal />
       </main>
     </Box>
   );
