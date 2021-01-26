@@ -1,5 +1,4 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,13 +7,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {useHistory} from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import {addUser} from "../slices/appSlice";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,19 +51,28 @@ function Copyright() {
   );
 }
 
+
+
 const SignUpForm = () => {
   const classes = useStyles();
   let history = useHistory();
+  const dispatch = useDispatch();
+  const [values, setValues] = useState({});
 
   function goToSignIn(e) {
     e.preventDefault()
     history.push("/signIn");
   }
 
+  const handleChange = (event) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log (formData.get('email'), formData.get('password'))
+    dispatch(addUser(formData))
   };
 
   return (
@@ -72,7 +82,7 @@ const SignUpForm = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -84,6 +94,8 @@ const SignUpForm = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={handleChange}
+                value={values.firstName || ''}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -95,6 +107,8 @@ const SignUpForm = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={handleChange}
+                value={values.lastName || ''}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,6 +120,9 @@ const SignUpForm = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                type="email"
+                onChange={handleChange}
+                value={values.email || ''}
               />
             </Grid>
             <Grid item xs={12}>
@@ -118,17 +135,21 @@ const SignUpForm = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
+                value={values.password || ''}
               />
             </Grid>
             <Grid item xs={12}>
               <RadioGroup row>
                 <FormControlLabel
+                  name="role"
                   value="teacher"
                   control={<Radio color="primary"/>}
                   label="Teacher"
                   labelPlacement="start"
                 />
                 <FormControlLabel
+                  name="role"
                   value="student"
                   control={<Radio color="primary"/>}
                   label="Student"

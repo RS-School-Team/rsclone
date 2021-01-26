@@ -1,5 +1,4 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,11 +7,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useHistory} from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { loginUser } from "../slices/appSlice";
 
 function Copyright() {
   return (
@@ -52,10 +52,28 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
   let history = useHistory();
+
+  const dispatch = useDispatch();
+  const [values, setValues] = useState({});
+
   function goToSignUp(e) {
     e.preventDefault(e)
     history.push("/signUp");
   }
+
+  const handleChange = (event) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+  };
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    dispatch(loginUser(formData))
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline/>
@@ -63,7 +81,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -72,8 +90,11 @@ export default function SignIn() {
             id="email"
             label="Email Address"
             name="email"
+            type="email"
             autoComplete="email"
             autoFocus
+            onChange={handleChange}
+            value={values.email || ''}
           />
           <TextField
             variant="outlined"
@@ -85,6 +106,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={handleChange}
+            value={values.password || ''}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary"/>}
