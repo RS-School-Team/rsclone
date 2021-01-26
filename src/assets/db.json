@@ -21,11 +21,7 @@
       "id": 10
     },
     {
-      "name": "asd",
-      "id": 17
-    },
-    {
-      "name": "Edit time",
+      "name": "fres",
       "id": 18
     },
     {
@@ -37,9 +33,14 @@
       "id": 24
     },
     {
-      "name": "Lesson 5",
+      "name": "wdea",
       "tasks": [],
       "id": 25
+    },
+    {
+      "name": "freasdfre",
+      "tasks": [],
+      "id": 26
     }
   ],
   "tasks": [
@@ -153,7 +154,7 @@
     },
     {
       "title": "Туц ефыл",
-      "description": "авм",
+      "description": "авмsdfadsf;km;lkdfam;vlkmadfvirjeraf;dkfm;rkfmar;fjknar;fjm;kdscmd;kacjnfjv",
       "listId": 10,
       "id": 57
     },
@@ -182,8 +183,8 @@
       "id": 61
     },
     {
-      "title": "refq",
-      "description": "vdfvs",
+      "title": "cdsac",
+      "description": "",
       "listId": 10,
       "id": 62
     }

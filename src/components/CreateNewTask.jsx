@@ -1,5 +1,5 @@
 import { TextField, Typography, Box, Button } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router';
 import SaveIcon from '@material-ui/icons/Save';
@@ -17,12 +17,13 @@ const CreateNewTask = () => {
       return elem.id === Number(id);
     });
   });
-  let title, description;
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const handleChandeTitle = (event) => {
-    title = event.target.value;
+    setTitle(event.target.value);
   };
   const handleChandeDescription = (event) => {
-    description = event.target.value;
+    setDescription(event.target.value);
   };
   const handleClose = () => {
     history.push(`${url.replace('/create-new-task', '')}`);
@@ -33,11 +34,38 @@ const CreateNewTask = () => {
   };
   return (
     <React.Fragment>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<SaveIcon />}
+        size="large"
+        style={{ marginRight: 8 }}
+        onClick={handleSaveClick}
+        disabled={
+          title.trim().length < 4
+            ? title.trim().length < 4
+            : description.trim().length < 70
+        }
+      >
+        Save
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        startIcon={<CancelIcon />}
+        size="large"
+        style={{ margin: 8 }}
+        onClick={() => handleClose()}
+      >
+        Cancel
+      </Button>
       <Typography variant="h4" align="center" gutterBottom>
         Create new task in {activeList && activeList.name} project
       </Typography>
       <form noValidate autoComplete="off">
         <TextField
+          helperText="Title length must be more than 3 characters"
+          error={title.trim().length < 4}
           id="task-title"
           label="Task title"
           style={{ marginBottom: 40, marginTop: 40 }}
@@ -48,6 +76,8 @@ const CreateNewTask = () => {
           onChange={handleChandeTitle}
         />
         <TextField
+          helperText="Description length must be more than 70 characters"
+          error={description.trim().length < 70}
           id="task-description"
           label="Task description"
           style={{ marginBottom: 40 }}
@@ -60,28 +90,6 @@ const CreateNewTask = () => {
           onChange={handleChandeDescription}
         />
       </form>
-      <Box align="center">
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<SaveIcon />}
-          size="large"
-          style={{ marginRight: 8 }}
-          onClick={handleSaveClick}
-        >
-          Save
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<CancelIcon />}
-          size="large"
-          style={{ margin: 8 }}
-          onClick={() => handleClose()}
-        >
-          Cancel
-        </Button>
-      </Box>
     </React.Fragment>
   );
 };

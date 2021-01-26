@@ -16,6 +16,7 @@ import CreateNewTask from './CreateNewTask';
 import EditTask from './EditTask';
 import { fetchLists } from '../slices/listsSlice';
 import DeleteTaskDialog from './DeleteTaskDialog';
+import LoadingSpinner from '../elements/spinner/spinner';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -48,6 +49,7 @@ const MainContent = () => {
   useEffect(() => {
     dispatch(fetchLists());
   }, []);
+  const status = useSelector((state) => state.lists.status);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   return (
@@ -57,6 +59,7 @@ const MainContent = () => {
           [classes.contentShift]: isMenuOpen,
         })}
       >
+        {status === 'loading' && <LoadingSpinner />}
         <div className={classes.drawerHeader} />
         <Switch>
           <Route exact path="/all_projects" component={Projects} />
