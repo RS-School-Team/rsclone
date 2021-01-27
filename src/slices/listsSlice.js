@@ -1,4 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  createSelector,
+} from '@reduxjs/toolkit';
+import {path} from '../assets/path'
+
 
 const initialState = {
   lists: [],
@@ -14,7 +20,7 @@ const initialState = {
 };
 
 export const addList = createAsyncThunk('lists/addList', async (title) => {
-  const response = await fetch('http://localhost:3005/lists', {
+  const response = await fetch(`${path}/lists`, {
     method: 'POST',
     body: JSON.stringify({
       name: title,

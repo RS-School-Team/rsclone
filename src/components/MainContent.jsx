@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
-import LoginModal from './LoginModal';
+import SignUpForm from "./SignUpForm";
 import Task from './Task';
 import CreateNewTask from './CreateNewTask';
 import EditTask from './EditTask';
@@ -69,18 +69,27 @@ const MainContent = () => {
             path="/project/:id/tasks/create-new-task"
             component={CreateNewTask}
           />
-          <Route exact path="/project/:id/tasks/:id" component={Task} />
+          <Route
+            exact
+            path="/project/:id/tasks/:id"
+            component={Task} />
           <Route
             exact
             path="/project/:id/tasks/:id/edit"
             component={EditTask}
           />
+          <Route
+            exact
+            path="/signUp"
+            component={SignUpForm} />
+          <Route
+            exact
+            path="/signIn"
+            component={SignInForm} />
         </Switch>
         <CreateList />
         <EditListTitle />
         <DeleteListDialog />
-        <DeleteTaskDialog />
-        <LoginModal />
       </main>
     </Box>
   );

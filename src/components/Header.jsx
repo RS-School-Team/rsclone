@@ -10,6 +10,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { openMenu } from '../slices/appSlice';
 import { openLogin } from '../slices/headerSlice';
+import {Link as RouteLink} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -42,6 +44,17 @@ export default function Header() {
   const classes = useStyles();
   const isLogin = useSelector((state) => state.header.isLogin);
   const dispatch = useDispatch();
+  let history = useHistory();
+
+  function goToSignUp(e) {
+    e.preventDefault(e)
+    history.push("/signUp");
+  }
+  function goToSignIn(e) {
+    e.preventDefault(e)
+    history.push("/signIn");
+  }
+
   return (
     <div>
       <AppBar
@@ -63,9 +76,15 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             All Projects
           </Typography>
-          <Button onClick={() => dispatch(openLogin())} color="inherit">
-            {isLogin ? 'Logout' : 'Login'}
-          </Button>
+          {!isLogin &&
+            <Button onClick = {goToSignUp} color="inherit">
+              Sign Up
+            </Button>
+          }
+            <Button onClick = {goToSignIn} color="inherit">
+              {isLogin ? 'Sign Out' : 'Sign In'}
+            </Button>
+
         </Toolbar>
       </AppBar>
     </div>

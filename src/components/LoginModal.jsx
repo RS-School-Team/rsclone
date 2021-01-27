@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import { Button, DialogActions } from '@material-ui/core';
 import { closeLogin } from '../slices/headerSlice';
+import SignUpForm from "./SignUpForm";
 
 const LoginModal = () => {
   const isOpen = useSelector((state) => state.header.isOpen);
@@ -13,23 +14,8 @@ const LoginModal = () => {
 
   return (
     <Dialog open={isOpen}>
-      <DialogTitle>ТИТУЛ</DialogTitle>
       <DialogContent>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="email"
-          label="Email Address"
-          type="email"
-          fullWidth
-        />
-        <TextField
-          margin="dense"
-          id="password"
-          label="Your password"
-          type="password"
-          fullWidth
-        />
+        <SignUpForm />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => dispatch(closeLogin())} color="primary">
