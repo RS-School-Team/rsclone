@@ -13,8 +13,9 @@ import Container from '@material-ui/core/Container';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {useHistory} from "react-router-dom";
-import {useDispatch} from 'react-redux';
-import {addUser} from "../slices/appSlice";
+import {useDispatch, useSelector} from 'react-redux';
+import {addUser, finishLoading} from "../slices/appSlice";
+import {unwrapResult} from "@reduxjs/toolkit";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,13 +51,12 @@ function Copyright() {
   );
 }
 
-
-
 const SignUpForm = () => {
   const classes = useStyles();
   let history = useHistory();
   const dispatch = useDispatch();
   const [values, setValues] = useState({});
+  const fetchStatus = useSelector((state) => state.app.status);
 
   function goToSignIn(e) {
     e.preventDefault()
@@ -73,6 +73,11 @@ const SignUpForm = () => {
     const formData = new FormData(e.target);
     dispatch(addUser(formData))
   };
+
+  if (fetchStatus === 'succeeded' || fetchStatus === 'failed') {
+    dispatch(finishLoading())
+    history.push("");
+  }
 
   return (
     <Container component="main" maxWidth="xs">

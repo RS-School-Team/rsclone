@@ -42,6 +42,9 @@ const appSlice = createSlice({
     closeMenu(state, action) {
       state.isMenuOpen = false;
     },
+    finishLoading(state, action) {
+      state.status = 'idle'
+    }
   },
   extraReducers: {
     [addUser.pending]: (state, action) => {
@@ -67,6 +70,6 @@ const appSlice = createSlice({
   }
 });
 
-export const { openMenu, closeMenu } = appSlice.actions;
+export const { openMenu, closeMenu, finishLoading } = appSlice.actions;
 
 export default appSlice.reducer;
