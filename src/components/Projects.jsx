@@ -1,20 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLists } from '../slices/listsSlice';
 import {
-  Box,
   Card,
   CardActions,
   CardContent,
-  Divider,
-  Drawer,
   Grid,
-  List,
-  ListItem,
-  Paper,
   Typography,
 } from '@material-ui/core';
-import { Link as RouteLink, useHistory, useLocation } from 'react-router-dom';
+import { Link as RouteLink } from 'react-router-dom';
 import { IconButton } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -24,16 +17,15 @@ import { editListOpen, createListOpen } from '../slices/listsSlice';
 import { makeStyles } from '@material-ui/core/styles';
 import { deleteListOpen } from '../slices/listsSlice';
 import CommentIcon from '@material-ui/icons/Comment';
-import { auto } from 'async';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 245,
+    height: 220,
     width: 200,
     borderRadius: 20,
   },
   addCard: {
-    height: 245,
+    height: 220,
     width: 200,
     display: 'flex',
     justifyContent: 'center',
@@ -67,15 +59,8 @@ const Projects = () => {
             }}
           >
             <Card className={classes.root} variant="outlined">
-              <RouteLink key={list.id} to={`/list/${list.id}`}>
+              <RouteLink key={list.id} to={`/project/${list.id}/tasks`}>
                 <CardContent>
-                  <Typography
-                    variant="body2"
-                    gutterBottom
-                    color="textSecondary"
-                  >
-                    List name:
-                  </Typography>
                   <Typography
                     variant="h5"
                     gutterBottom

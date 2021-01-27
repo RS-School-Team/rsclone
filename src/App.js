@@ -1,4 +1,4 @@
-import { Container, Divider, Grid } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import React from 'react';
 import MainContent from './components/MainContent.jsx';
 import Sidebar from './components/SideBar';

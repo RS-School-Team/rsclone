@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import {path} from '../assets/path'
 
+
 const initialState = {
   isMenuOpen: false,
   status: 'idle',
@@ -36,7 +37,7 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
 });
 
 const appSlice = createSlice({
-  name: 'tasks',
+  name: 'app',
   initialState,
   reducers: {
     openMenu(state, action) {

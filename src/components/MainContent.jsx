@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
-import { Box, Typography } from '@material-ui/core';
-import {
-  Route,
-  Link as RouteLink,
-  useRouteMatch,
-  Switch,
-} from 'react-router-dom';
+import { Box } from '@material-ui/core';
+import { Route, Switch } from 'react-router-dom';
 import clsx from 'clsx';
 
 import CreateList from './CreateList';
@@ -15,10 +10,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
-import { fetchLists } from '../slices/listsSlice';
-import LoginModal from './LoginModal';
 import SignUpForm from "./SignUpForm";
-import SignInForm from "./SignInForm";
+import Task from './Task';
+import CreateNewTask from './CreateNewTask';
+import EditTask from './EditTask';
+import { fetchLists } from '../slices/listsSlice';
+import DeleteTaskDialog from './DeleteTaskDialog';
+import LoadingSpinner from '../elements/spinner/spinner';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -51,6 +49,7 @@ const MainContent = () => {
   useEffect(() => {
     dispatch(fetchLists());
   }, []);
+  const status = useSelector((state) => state.lists.status);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   return (
@@ -60,12 +59,33 @@ const MainContent = () => {
           [classes.contentShift]: isMenuOpen,
         })}
       >
+        {status === 'loading' && <LoadingSpinner />}
         <div className={classes.drawerHeader} />
         <Switch>
           <Route exact path="/all_projects" component={Projects} />
-          <Route exact path="/list/:id" component={Tasks} />
-          <Route exact path="/signUp" component={SignUpForm} />
-          <Route exact path="/signIn" component={SignInForm} />
+          <Route exact path="/project/:id/tasks" component={Tasks} />
+          <Route
+            exact
+            path="/project/:id/tasks/create-new-task"
+            component={CreateNewTask}
+          />
+          <Route
+            exact
+            path="/project/:id/tasks/:id"
+            component={Task} />
+          <Route
+            exact
+            path="/project/:id/tasks/:id/edit"
+            component={EditTask}
+          />
+          <Route
+            exact
+            path="/signUp"
+            component={SignUpForm} />
+          <Route
+            exact
+            path="/signIn"
+            component={SignInForm} />
         </Switch>
         <CreateList />
         <EditListTitle />
