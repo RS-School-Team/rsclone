@@ -1,14 +1,8 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from '@material-ui/core';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle,} from '@material-ui/core';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteTask, deleteTaskClose } from '../slices/listsSlice';
-import { useHistory } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteTask, deleteTaskClose} from '../slices/listsSlice';
+import {useHistory} from 'react-router-dom';
 
 const DeleteTaskDialog = () => {
   const history = useHistory();

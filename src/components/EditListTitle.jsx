@@ -1,14 +1,7 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from '@material-ui/core';
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { editList, editListClose } from '../slices/listsSlice';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField,} from '@material-ui/core';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {editList, editListClose} from '../slices/listsSlice';
 
 const EditListTitle = () => {
   const isOpen = useSelector((state) => state.lists.isEditListOpen);

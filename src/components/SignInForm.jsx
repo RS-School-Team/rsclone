@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useHistory} from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { loginUser } from "../slices/appSlice";
+import {useDispatch} from 'react-redux';
+import {loginUser} from "../slices/appSlice";
 
 function Copyright() {
   return (

@@ -1,13 +1,7 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from '@material-ui/core';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle,} from '@material-ui/core';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteList, deleteListClose } from '../slices/listsSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteList, deleteListClose} from '../slices/listsSlice';
 
 const DeleteListDialog = () => {
   const dispatch = useDispatch();

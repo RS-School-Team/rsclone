@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react';
-import { Box } from '@material-ui/core';
-import { Route, Switch } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Box} from '@material-ui/core';
+import {Route, Switch} from 'react-router-dom';
 import clsx from 'clsx';
-
 import CreateList from './CreateList';
 import Tasks from './Tasks';
 import EditListTitle from './EditListTitle';
-import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
+import {makeStyles} from '@material-ui/core/styles';
+import {useDispatch, useSelector} from 'react-redux';
 import Projects from './Projects';
 import DeleteListDialog from './DeleteListDialog';
 import SignUpForm from "./SignUpForm";
 import Task from './Task';
 import CreateNewTask from './CreateNewTask';
 import EditTask from './EditTask';
-import { fetchLists } from '../slices/listsSlice';
-import DeleteTaskDialog from './DeleteTaskDialog';
+import {fetchLists} from '../slices/listsSlice';
 import LoadingSpinner from '../elements/spinner/spinner';
+import SignInForm from "./SignInForm";
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -50,6 +49,7 @@ const MainContent = () => {
     dispatch(fetchLists());
   }, []);
   const status = useSelector((state) => state.lists.status);
+  const loginStatus = useSelector((state) => state.app.status)
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   return (
@@ -59,11 +59,17 @@ const MainContent = () => {
           [classes.contentShift]: isMenuOpen,
         })}
       >
-        {status === 'loading' && <LoadingSpinner />}
+        {(status === 'loading' || loginStatus === 'loading') && <LoadingSpinner />}
         <div className={classes.drawerHeader} />
         <Switch>
-          <Route exact path="/all_projects" component={Projects} />
-          <Route exact path="/project/:id/tasks" component={Tasks} />
+          <Route
+            exact
+            path="/all_projects"
+            component={Projects} />
+          <Route
+            exact
+            path="/project/:id/tasks"
+            component={Tasks} />
           <Route
             exact
             path="/project/:id/tasks/create-new-task"

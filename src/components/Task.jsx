@@ -1,11 +1,11 @@
-import { Button, Typography } from '@material-ui/core';
+import {Button, Typography} from '@material-ui/core';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRouteMatch } from 'react-router';
+import {useDispatch, useSelector} from 'react-redux';
+import {useRouteMatch} from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { Link as RouteLink } from 'react-router-dom';
-import { deleteTaskOpen } from '../slices/listsSlice';
+import {Link as RouteLink} from 'react-router-dom';
+import {deleteTaskOpen} from '../slices/listsSlice';
 
 const Task = () => {
   const { url, params } = useRouteMatch();

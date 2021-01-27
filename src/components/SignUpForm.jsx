@@ -13,9 +13,8 @@ import Container from '@material-ui/core/Container';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {useHistory} from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {addUser} from "../slices/appSlice";
-
 
 
 const useStyles = makeStyles((theme) => ({

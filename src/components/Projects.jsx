@@ -1,21 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Typography,
-} from '@material-ui/core';
-import { Link as RouteLink } from 'react-router-dom';
-import { IconButton } from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {Card, CardActions, CardContent, Grid, IconButton, Typography,} from '@material-ui/core';
+import {Link as RouteLink} from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import { tasksLoaded } from '../slices/tasksSlice';
-import { editListOpen, createListOpen } from '../slices/listsSlice';
-import { makeStyles } from '@material-ui/core/styles';
-import { deleteListOpen } from '../slices/listsSlice';
+import {tasksLoaded} from '../slices/tasksSlice';
+import {createListOpen, deleteListOpen, editListOpen} from '../slices/listsSlice';
+import {makeStyles} from '@material-ui/core/styles';
 import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles((theme) => ({

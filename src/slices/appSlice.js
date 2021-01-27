@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  createSelector,
-} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice,} from '@reduxjs/toolkit';
 import {path} from '../assets/path'
 
 

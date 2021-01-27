@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import { Card, CardContent, Grid, IconButton } from '@material-ui/core';
+import {Card, CardContent, Grid, IconButton} from '@material-ui/core';
 
-import { Link as RouteLink, useRouteMatch } from 'react-router-dom';
+import {Link as RouteLink, useRouteMatch} from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
-import { makeStyles } from '@material-ui/core/styles';
-import { fetchLists } from '../slices/listsSlice';
+import {makeStyles} from '@material-ui/core/styles';
+import {fetchLists} from '../slices/listsSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {

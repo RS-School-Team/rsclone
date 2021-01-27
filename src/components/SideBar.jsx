@@ -1,10 +1,11 @@
 import React from 'react';
-import { Divider, Drawer, IconButton, List, ListItem } from '@material-ui/core';
-import { Link as RouteLink } from 'react-router-dom';
+import {Divider, Drawer, IconButton, List, ListItem} from '@material-ui/core';
+import {Link as RouteLink} from 'react-router-dom';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { makeStyles } from '@material-ui/core/styles';
-import { useSelector, useDispatch } from 'react-redux';
-import { closeMenu } from '../slices/appSlice';
+import {makeStyles} from '@material-ui/core/styles';
+import {useDispatch, useSelector} from 'react-redux';
+import {closeMenu} from '../slices/appSlice';
+
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: 'flex',
@@ -21,11 +22,13 @@ const Sidebar = () => {
   return (
     <Drawer variant="persistent" anchor="left" open={isOpen}>
       <div className={classes.drawerHeader}>
-        <IconButton color="primary" onClick={() => dispatch(closeMenu())}>
-          <ChevronLeftIcon />
+        <IconButton
+          color="primary"
+          onClick={() => dispatch(closeMenu())}>
+          <ChevronLeftIcon/>
         </IconButton>
       </div>
-      <Divider />
+      <Divider/>
       <List component="nav">
         <RouteLink to={`/all_projects`}>
           <ListItem

@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  createSelector,
-} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice,} from '@reduxjs/toolkit';
 import {path} from '../assets/path'
 
 
@@ -183,6 +179,7 @@ const listSlice = createSlice({
       state.status = 'loading';
     },
     [addList.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
       state.lists.push(action.payload);
     },
     [addList.rejected]: (state, action) => {

@@ -7,9 +7,9 @@ import {
   DialogTitle,
   TextField,
 } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addList, createListClose } from '../slices/listsSlice';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {addList, createListClose} from '../slices/listsSlice';
 
 const CreateList = () => {
   const isOpen = useSelector((state) => state.lists.isCreateListOpen);

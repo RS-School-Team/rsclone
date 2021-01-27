@@ -1,11 +1,12 @@
-import { Button, TextField, Typography } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRouteMatch } from 'react-router';
+import {Button, TextField, Typography} from '@material-ui/core';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useRouteMatch} from 'react-router';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { useHistory } from 'react-router-dom';
-import { editTask } from '../slices/listsSlice';
+import {useHistory} from 'react-router-dom';
+import {editTask} from '../slices/listsSlice';
+
 const EditTask = () => {
   const dispatch = useDispatch();
   const history = useHistory();
