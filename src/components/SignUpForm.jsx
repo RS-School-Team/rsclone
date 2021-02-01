@@ -15,7 +15,6 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {addUser, finishLoading} from "../slices/appSlice";
-import {unwrapResult} from "@reduxjs/toolkit";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,14 +64,30 @@ const SignUpForm = () => {
 
   const handleChange = (event) => {
     event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    setValues(values => ({...values, [event.target.name]: event.target.value}));
   };
+
+/*    const handleSubmit = (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target)
+  /!*    for(let [name, value] of formData) {
+        console.log(`${name} = ${value}`); // key1=value1, потом key2=value2
+      }*!/
+      dispatch(addUser(formData))
+    };*/
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = JSON.stringify({
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+      role: e.target.role.value
+    })
+    console.log(formData)
     dispatch(addUser(formData))
-  };
+  }
 
   if (fetchStatus === 'succeeded' || fetchStatus === 'failed') {
     dispatch(finishLoading())

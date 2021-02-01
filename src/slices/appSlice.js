@@ -13,7 +13,7 @@ export const addUser = createAsyncThunk('app/addUser', async (form) => {
     method: 'POST',
     body: form,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'form/multipart',
     },
   });
   const list = await response.json();
