@@ -1,1 +1,1 @@
-export const path = 'http://localhost:3005'
+export const path = 'https://rss-team-rsclone.herokuapp.com/api'

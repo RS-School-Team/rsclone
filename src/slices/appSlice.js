@@ -9,15 +9,16 @@ const initialState = {
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
-  const response = await fetch(`${path}/signUp`, {
+  const response = await fetch(`${path}/auth/register`, {
     method: 'POST',
     body: form,
     headers: {
-      'Content-Type': 'form/multipart',
+      'Content-Type': 'application/json',
     },
+    redirect: 'follow'
   });
-  const list = await response.json();
-  return list;
+  const user = await response.json();
+  return user;
 });
 
 export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
@@ -27,6 +28,7 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    mode: "no-cors"
   });
   const list = await response.json();
   return list;
@@ -51,6 +53,7 @@ const appSlice = createSlice({
       state.status = 'loading';
     },
     [addUser.fulfilled]: (state, action) => {
+      console.log(action.payload)
       state.status = 'succeeded';
     },
     [addUser.rejected]: (state, action) => {

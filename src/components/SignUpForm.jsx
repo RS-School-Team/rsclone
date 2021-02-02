@@ -67,23 +67,17 @@ const SignUpForm = () => {
     setValues(values => ({...values, [event.target.name]: event.target.value}));
   };
 
-/*    const handleSubmit = (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target)
-  /!*    for(let [name, value] of formData) {
-        console.log(`${name} = ${value}`); // key1=value1, потом key2=value2
-      }*!/
-      dispatch(addUser(formData))
-    };*/
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    let isTeacher = e.target.role.value === 'teacher'
     const formData = JSON.stringify({
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
+      name: {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+      },
       email: e.target.email.value,
       password: e.target.password.value,
-      role: e.target.role.value
+      manager: isTeacher
     })
     console.log(formData)
     dispatch(addUser(formData))
