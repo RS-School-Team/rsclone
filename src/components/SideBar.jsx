@@ -1,10 +1,11 @@
 import React from 'react';
-import {Divider, Drawer, IconButton, List, ListItem} from '@material-ui/core';
-import {Link as RouteLink} from 'react-router-dom';
+import { Divider, Drawer, IconButton, List, ListItem } from '@material-ui/core';
+import { Link as RouteLink } from 'react-router-dom';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {makeStyles} from '@material-ui/core/styles';
-import {useDispatch, useSelector} from 'react-redux';
-import {closeMenu} from '../slices/appSlice';
+import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeMenu } from '../slices/appSlice';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -19,36 +20,46 @@ const Sidebar = () => {
   const isOpen = useSelector((state) => state.app.isMenuOpen);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const history = useHistory();
   return (
     <Drawer variant="persistent" anchor="left" open={isOpen}>
       <div className={classes.drawerHeader}>
-        <IconButton
-          color="primary"
-          onClick={() => dispatch(closeMenu())}>
-          <ChevronLeftIcon/>
+        <IconButton color="primary" onClick={() => dispatch(closeMenu())}>
+          <ChevronLeftIcon />
         </IconButton>
       </div>
-      <Divider/>
+      <Divider />
       <List component="nav">
-        <RouteLink to={`/all_projects`}>
-          <ListItem
-            button
-            style={{ height: 50, width: 320 }}
-            onClick={() => dispatch(closeMenu())}
-          >
-            All projects
-          </ListItem>
-        </RouteLink>
-
-        <RouteLink to={`/user-id`}>
-          <ListItem
-            button
-            style={{ height: 50, width: 320 }}
-            onClick={() => dispatch(closeMenu())}
-          >
-            Your account
-          </ListItem>
-        </RouteLink>
+        <ListItem
+          button
+          style={{ height: 50, width: 320 }}
+          onClick={() => {
+            history.push('/all_projects');
+            dispatch(closeMenu());
+          }}
+        >
+          All projects
+        </ListItem>
+        <ListItem
+          button
+          style={{ height: 50, width: 320 }}
+          onClick={() => {
+            history.push('/students');
+            dispatch(closeMenu());
+          }}
+        >
+          Your students
+        </ListItem>
+        <ListItem
+          button
+          style={{ height: 50, width: 320 }}
+          onClick={() => {
+            history.push(`/user-id`);
+            dispatch(closeMenu());
+          }}
+        >
+          Your account
+        </ListItem>
       </List>
     </Drawer>
   );

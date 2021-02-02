@@ -1,11 +1,11 @@
-import {createAsyncThunk, createSlice,} from '@reduxjs/toolkit';
-import {path} from '../assets/path'
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { path } from '../assets/path';
 
 const initialState = {
   isMenuOpen: false,
   status: 'idle',
   error: null,
+  isAdmin: true,
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
@@ -45,8 +45,8 @@ const appSlice = createSlice({
       state.isMenuOpen = false;
     },
     finishLoading(state, action) {
-      state.status = 'idle'
-    }
+      state.status = 'idle';
+    },
   },
   extraReducers: {
     [addUser.pending]: (state, action) => {
@@ -70,7 +70,7 @@ const appSlice = createSlice({
       state.status = 'failed';
       state.error = action.payload;
     },
-  }
+  },
 });
 
 export const { openMenu, closeMenu, finishLoading } = appSlice.actions;

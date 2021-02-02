@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import {Card, CardContent, Grid, IconButton} from '@material-ui/core';
+import { Card, CardContent, Grid, IconButton } from '@material-ui/core';
 
-import {Link as RouteLink, useRouteMatch} from 'react-router-dom';
+import { Link as RouteLink, useRouteMatch } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
-import {makeStyles} from '@material-ui/core/styles';
-import {fetchLists} from '../slices/listsSlice';
+import { makeStyles } from '@material-ui/core/styles';
+import { fetchLists } from '../slices/listsSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +36,7 @@ const Tasks = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { url, params } = useRouteMatch();
+  const isAdmin = useSelector((state) => state.app.isAdmin);
   const id = Number(params.id);
   const [activeList] = useSelector((state) => {
     return state.lists.lists.filter((elem) => {
@@ -85,15 +86,17 @@ const Tasks = () => {
               </Grid>
             );
           })}
-          <Grid item>
-            <Card className={classes.addCard} variant="outlined">
-              <RouteLink to={`${url}/create-new-task`}>
-                <IconButton size="medium" color="primary">
-                  <AddIcon className={classes.addCardBtn} />
-                </IconButton>
-              </RouteLink>
-            </Card>
-          </Grid>
+          {isAdmin && (
+            <Grid item>
+              <Card className={classes.addCard} variant="outlined">
+                <RouteLink to={`${url}/create-new-task`}>
+                  <IconButton size="medium" color="primary">
+                    <AddIcon className={classes.addCardBtn} />
+                  </IconButton>
+                </RouteLink>
+              </Card>
+            </Grid>
+          )}
         </Grid>
       )}
     </React.Fragment>
