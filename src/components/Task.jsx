@@ -1,14 +1,15 @@
-import {Button, Typography} from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useRouteMatch} from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouteMatch } from 'react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import {Link as RouteLink} from 'react-router-dom';
-import {deleteTaskOpen} from '../slices/listsSlice';
+import { Link as RouteLink } from 'react-router-dom';
+import { deleteTaskOpen } from '../slices/listsSlice';
 
 const Task = () => {
   const { url, params } = useRouteMatch();
+  const isAdmin = useSelector((state) => state.app.isAdmin);
   const dispatch = useDispatch();
   const [listId] = url.match(/(?<=project\/)([\S]+?)(?=\/)/);
   const taskId = Number(params.id);
@@ -23,27 +24,31 @@ const Task = () => {
   }
   return (
     <React.Fragment>
-      <RouteLink to={`${url}/edit`}>
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          style={{ margin: 8 }}
-          startIcon={<EditIcon />}
-        >
-          Edit
-        </Button>
-      </RouteLink>
-      <Button
-        variant="contained"
-        size="large"
-        color="secondary"
-        style={{ margin: 8 }}
-        startIcon={<DeleteIcon />}
-        onClick={() => dispatch(deleteTaskOpen(task))}
-      >
-        Delete
-      </Button>
+      {isAdmin && (
+        <React.Fragment>
+          <RouteLink to={`${url}/edit`}>
+            <Button
+              variant="contained"
+              size="large"
+              color="primary"
+              style={{ margin: 8 }}
+              startIcon={<EditIcon />}
+            >
+              Edit
+            </Button>
+          </RouteLink>
+          <Button
+            variant="contained"
+            size="large"
+            color="secondary"
+            style={{ margin: 8 }}
+            startIcon={<DeleteIcon />}
+            onClick={() => dispatch(deleteTaskOpen(task))}
+          >
+            Delete
+          </Button>
+        </React.Fragment>
+      )}
 
       <Typography
         variant="h4"
