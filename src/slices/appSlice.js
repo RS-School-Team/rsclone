@@ -5,10 +5,12 @@ const initialState = {
   isMenuOpen: false,
   status: 'idle',
   error: null,
-  isAdmin: true,
+  isLogin: false,
+  user: {}
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
+  console.log(1)
   const response = await fetch(`${path}/auth/register`, {
     method: 'POST',
     body: form,
@@ -17,7 +19,10 @@ export const addUser = createAsyncThunk('app/addUser', async (form) => {
     },
     redirect: 'follow'
   });
+  console.log(2)
   const user = await response.json();
+  localStorage.setItem('token', user.token)
+  sessionStorage.setItem('token', user.token)
   return user;
 });
 
@@ -51,6 +56,8 @@ const appSlice = createSlice({
   extraReducers: {
     [addUser.pending]: (state, action) => {
       state.status = 'loading';
+      state.user = action.payload.user;
+      state.token = action.payload.token
     },
     [addUser.fulfilled]: (state, action) => {
       console.log(action.payload)

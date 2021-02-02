@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
-  const isLogin = useSelector((state) => state.header.isLogin);
+  const isLogin = useSelector((state) => state.app.isLogin);
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -48,10 +48,20 @@ export default function Header() {
     e.preventDefault(e)
     history.push("/signUp");
   }
+
   function goToSignIn(e) {
     e.preventDefault(e)
     history.push("/signIn");
   }
+
+  let greetingText
+
+  if (isLogin) {
+    greetingText = "All Projects"
+  } else {
+    greetingText = "Please Sign In"
+  }
+
 
   return (
     <div>
@@ -63,6 +73,7 @@ export default function Header() {
       >
         <Toolbar>
           <IconButton
+            disabled={!isLogin}
             edge="start"
             color="inherit"
             aria-label="menu"
@@ -72,17 +83,19 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            All Projects
+            {greetingText}
           </Typography>
+          {isLogin &&
+            'HELLO WORD 42'
+          }
           {!isLogin &&
             <Button onClick = {goToSignUp} color="inherit">
               Sign Up
             </Button>
           }
             <Button onClick = {goToSignIn} color="inherit">
-              {isLogin ? 'Sign Out' : 'Sign In'}
+              {isLogin ? 'Log Out' : 'Sign In'}
             </Button>
-
         </Toolbar>
       </AppBar>
     </div>

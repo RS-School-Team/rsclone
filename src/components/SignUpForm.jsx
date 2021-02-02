@@ -79,7 +79,7 @@ const SignUpForm = () => {
       password: e.target.password.value,
       manager: isTeacher
     })
-    console.log(formData)
+    console.log('formData', formData)
     dispatch(addUser(formData))
   }
 
