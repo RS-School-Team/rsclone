@@ -1,3 +1,4 @@
+
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md;
 2. Screenshot: 
 ![Иллюстрация к проекту](https://i.ibb.co/JQ0zRJV/123124.jpg)
@@ -24,3 +25,4 @@ nest js https://docs.nestjs.com/ (40 баллов)
 mongoDB mongodb.com (40 баллов) 
 mongoose https://mongoosejs.com/ (40 баллов) 
 JWT https://jwt.io/ (40 баллов) 
+

@@ -1,0 +1,242 @@
+{
+  "lists": [
+    {
+      "id": 4,
+      "name": "Книги",
+      "colorId": 2
+    },
+    {
+      "id": 5,
+      "name": "Личное",
+      "colorId": 1
+    },
+    {
+      "name": "Cgbcr",
+      "colorId": 1,
+      "id": 8
+    },
+    {
+      "name": "Список1",
+      "colorId": 1,
+      "id": 10
+    },
+    {
+      "name": "fres",
+      "id": 18
+    },
+    {
+      "name": "Title name",
+      "id": 23
+    },
+    {
+      "name": "Add",
+      "id": 24
+    },
+    {
+      "name": "wdea",
+      "tasks": [],
+      "id": 25
+    }
+  ],
+  "tasks": [
+    {
+      "listId": 4,
+      "title": "Купить 1984!",
+      "completed": true,
+      "id": 10,
+      "text": "Текст задачи"
+    },
+    {
+      "listId": 5,
+      "title": "cdcd",
+      "completed": false,
+      "id": 18
+    },
+    {
+      "listId": 4,
+      "title": "New title",
+      "completed": false,
+      "id": 19
+    },
+    {
+      "listId": 4,
+      "title": "sd",
+      "completed": false,
+      "id": 20
+    },
+    {
+      "listId": 10,
+      "title": "Задача15",
+      "completed": true,
+      "id": 23
+    },
+    {
+      "listId": 10,
+      "title": "Ntrc",
+      "completed": false,
+      "id": 25
+    },
+    {
+      "title": "erwf",
+      "description": "vdsf",
+      "listId": 8,
+      "id": 43
+    },
+    {
+      "title": "qwed",
+      "description": "frewf",
+      "listId": 8,
+      "id": 44
+    },
+    {
+      "title": "ewf123",
+      "description": "vdfsv",
+      "listId": 8,
+      "id": 45
+    },
+    {
+      "title": "wfer",
+      "description": "csdsf",
+      "listId": 8,
+      "id": 46
+    },
+    {
+      "title": "wda",
+      "description": "dewdedw",
+      "listId": 8,
+      "id": 47
+    },
+    {
+      "title": "Old task",
+      "description": "Ssdf",
+      "listId": 25,
+      "id": 48
+    },
+    {
+      "title": "New task",
+      "description": "sefs",
+      "listId": 25,
+      "id": 49
+    },
+    {
+      "title": "Task 512",
+      "description": "erfs",
+      "listId": 25,
+      "id": 50
+    },
+    {
+      "title": "cd",
+      "listId": 5,
+      "id": 52
+    },
+    {
+      "title": "acs",
+      "description": "sd",
+      "listId": 5,
+      "id": 53
+    },
+    {
+      "title": "weqd",
+      "description": "fvsf",
+      "listId": 5,
+      "id": 54
+    },
+    {
+      "title": "edw",
+      "description": "vfsv",
+      "listId": 8,
+      "id": 56
+    },
+    {
+      "title": "Туц ефыл",
+      "description": "авмsdfadsf;km;lkdfam;vlkmadfvirjeraf;dkfm;rkfmar;fjknar;fjm;kdscmd;kacjnfjv",
+      "listId": 10,
+      "id": 57
+    },
+    {
+      "title": "efrq",
+      "description": "dsfd",
+      "listId": 10,
+      "id": 58
+    },
+    {
+      "title": "scad",
+      "description": "cdcd",
+      "listId": 10,
+      "id": 59
+    },
+    {
+      "title": "dcs",
+      "description": "cd",
+      "listId": 10,
+      "id": 60
+    },
+    {
+      "title": "afdv",
+      "description": "vfdvf",
+      "listId": 10,
+      "id": 61
+    },
+    {
+      "title": "cdsac",
+      "description": "",
+      "listId": 10,
+      "id": 62
+    },
+    {
+      "title": "ыфвафы",
+      "description": "фывафывафывафыв афывлоардлф ыврдал рфыдвлоа рдфыловар флыов ардлфыовр адлофывра длоыфвр а",
+      "listId": 23,
+      "id": 63
+    },
+    {
+      "title": "фыва",
+      "description": "фываффффффффффффффффффффффффффффффффффффффыв фыв выффффффффффффффффффффффффффффффффф",
+      "listId": 4,
+      "id": 64
+    }
+  ],
+  "colors": [
+    {
+      "id": 1,
+      "hex": "#C9D1D3",
+      "name": "grey"
+    },
+    {
+      "id": 2,
+      "hex": "#42B883",
+      "name": "green"
+    },
+    {
+      "id": 3,
+      "hex": "#64C4ED",
+      "name": "blue"
+    },
+    {
+      "id": 4,
+      "hex": "#FFBBCC",
+      "name": "pink"
+    },
+    {
+      "id": 5,
+      "hex": "#B6E6BD",
+      "name": "lime"
+    },
+    {
+      "id": 6,
+      "hex": "##B6E6BD",
+      "name": "purple"
+    },
+    {
+      "id": 7,
+      "hex": "#110133",
+      "name": "black"
+    },
+    {
+      "id": 8,
+      "hex": "#FF6464",
+      "name": "red"
+    }
+  ],
+  "taskDescriptions": []
+}
