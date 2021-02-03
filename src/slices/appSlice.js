@@ -16,6 +16,7 @@ const initialState = {
   error: null,
   isLogin: false,
   user: initialUser,
+  token: '',
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
@@ -69,6 +70,7 @@ const appSlice = createSlice({
     logOut(state, action) {
       state.user = initialUser
       state.isLogin = false;
+      state.token = '';
       localStorage.removeItem('token');
       sessionStorage.removeItem('token');
     }
