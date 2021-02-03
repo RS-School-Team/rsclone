@@ -3,14 +3,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import * as bcrypt from 'bcrypt';
 import * as mongoose from 'mongoose';
-import { UsersService } from './users.service';
-import { User, UserSchema } from './schemas/user.schema';
+import { UsersService } from './service/users.service';
+import { User, UserSchema } from './schema/user.schema';
 import { ConfigModule } from '@nestjs/config';
+import { UsersController } from './controller/users.controller';
+import { ProjectModule } from 'src/project/project.module';
 
 @Module({
   providers: [UsersService],
   exports: [UsersService],
   imports: [
+    ProjectModule,
     MongooseModule.forFeatureAsync([
       {
         name: User.name,
@@ -33,5 +36,6 @@ import { ConfigModule } from '@nestjs/config';
       },
     ]),
   ],
+  controllers: [UsersController],
 })
 export class UsersModule {}

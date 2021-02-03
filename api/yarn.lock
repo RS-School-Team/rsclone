@@ -2416,6 +2416,13 @@ eslint-config-prettier@^6.15.0:
   dependencies:
     get-stdin "^6.0.0"
 
+eslint-plugin-nestjs@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-nestjs/-/eslint-plugin-nestjs-1.2.3.tgz#d59deefd0404c5d62889a84a95317dabfa87a587"
+  integrity sha512-CYS2l+oO9sZ8QN1B0/Xgz+2CERfiWCiHDmDslX30yrJrNlBNKFypeCac/7g/NE+LDuox5MH13uvd4qd52Tlt5w==
+  dependencies:
+    tslib "^1.8.1"
+
 eslint-plugin-prettier@^3.1.4:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.3.1.tgz#7079cfa2497078905011e6f82e8dd8453d1371b7"
