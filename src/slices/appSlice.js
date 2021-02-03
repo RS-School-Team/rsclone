@@ -10,15 +10,19 @@ const initialState = {
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
+  console.log(form);
+
   const response = await fetch(`${path}/auth/register`, {
     method: 'POST',
-    body: form,
+    body: JSON.stringify(form),
     headers: {
       'Content-Type': 'application/json',
     },
     redirect: 'follow',
   });
   const user = await response.json();
+  console.log(user);
+
   localStorage.setItem('token', user.token);
   sessionStorage.setItem('token', user.token);
   return user;
@@ -57,11 +61,10 @@ const appSlice = createSlice({
   extraReducers: {
     [addUser.pending]: (state, action) => {
       state.status = 'loading';
-      state.user = action.payload.user;
-      state.token = action.payload.token;
     },
     [addUser.fulfilled]: (state, action) => {
-      console.log(action.payload);
+      state.user = action.payload.user;
+      state.token = action.payload.token;
       state.status = 'succeeded';
     },
     [addUser.rejected]: (state, action) => {

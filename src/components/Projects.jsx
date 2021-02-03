@@ -48,8 +48,6 @@ const useStyles = makeStyles((theme) => ({
 const Projects = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.lists);
-  const { name, manager } = useSelector((state) => state.app.user);
-
   const classes = useStyles();
 
   return (
@@ -74,20 +72,16 @@ const Projects = () => {
                   >
                     {list.name}
                   </Typography>
-                  {manager && (
-                    <React.Fragment>
-                      <Typography variant="body2" color="textSecondary">
-                        Tasks in this list:
-                      </Typography>
-                      <Typography variant="h6" gutterBottom>
-                        {list.tasks && list.tasks.length}
-                      </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Tasks in this list:
+                  </Typography>
+                  <Typography variant="h6" gutterBottom>
+                    {list.tasks && list.tasks.length}
+                  </Typography>
 
-                      <Typography variant="body2" color="textSecondary">
-                        Users doing this tasks: 0
-                      </Typography>
-                    </React.Fragment>
-                  )}
+                  <Typography variant="body2" color="textSecondary">
+                    Users doing this tasks: 0
+                  </Typography>
                 </CardContent>
               </RouteLink>
 

@@ -72,7 +72,7 @@ const SignUpForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let isTeacher = e.target.role.value === 'teacher';
-    const formData = JSON.stringify({
+    const formData = {
       name: {
         firstName: e.target.firstName.value,
         lastName: e.target.lastName.value,
@@ -80,8 +80,7 @@ const SignUpForm = () => {
       email: e.target.email.value,
       password: e.target.password.value,
       manager: isTeacher,
-    });
-    console.log('formData', formData);
+    };
     dispatch(addUser(formData));
   };
 
