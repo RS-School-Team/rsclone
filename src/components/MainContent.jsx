@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme) => ({
 
 const MainContent = () => {
   const dispatch = useDispatch();
-  /* useEffect(() => {
+  useEffect(() => {
     dispatch(fetchLists());
-  }, []);*/
+  }, []);
   const status = useSelector((state) => state.lists.status);
   const loginStatus = useSelector((state) => state.app.status);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
@@ -73,7 +73,7 @@ const MainContent = () => {
             path="/project/:id/tasks/create-new-task"
             component={CreateNewTask}
           />
-          <Route exact path="/project/:id/tasks/:id" component={Task} />
+          <Route exact path="/project/:_id/tasks/:id" component={Task} />
           <Route
             exact
             path="/project/:id/tasks/:id/edit"

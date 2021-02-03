@@ -1,6 +1,5 @@
-import {createAsyncThunk, createSlice,} from '@reduxjs/toolkit';
-import {path} from '../assets/path'
-
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { path } from '../assets/path';
 
 const initialState = {
   lists: [],
@@ -15,23 +14,25 @@ const initialState = {
   deletingTask: {},
 };
 
-export const addList = createAsyncThunk('lists/addList', async (title) => {
-  const response = await fetch(`${path}/lists`, {
+export const addList = createAsyncThunk('lists/addList', async (project) => {
+  const response = await fetch(`${path}/project`, {
     method: 'POST',
-    body: JSON.stringify({
-      name: title,
-      tasks: [],
-    }),
+    body: JSON.stringify(project),
     headers: {
       'Content-Type': 'application/json',
     },
+    redirect: 'follow',
   });
   const list = await response.json();
+  console.log(list);
   return list;
 });
 
-export const fetchLists = createAsyncThunk('lists/fetchLists', async () => {
-  const response = await fetch('http://localhost:3005/lists?_embed=tasks');
+export const fetchLists = createAsyncThunk('lists/fetchLists', async (id) => {
+  const response = await fetch(`${path}/project`, {
+    method: 'GET',
+    body: JSON.stringify({ managerID: id }),
+  });
   const data = await response.json();
   return data;
 });
@@ -84,7 +85,6 @@ export const editTask = createAsyncThunk(
       },
     });
     const newTask = await response.json();
-    console.log(newTask);
     return newTask;
   }
 );
