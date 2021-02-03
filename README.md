@@ -1,68 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## Available Scripts
+1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md;
+2. Screenshot: 
+![Иллюстрация к проекту](https://i.ibb.co/JQ0zRJV/123124.jpg)
+3. Deploy: 
+4. Done 03.02.2021 / deadline 03.02.2021
+5. Score: 320
+Фичи:
+Реализован routing (без перезагрузки страницы приложения) (20 баллов)
+Приложение выполнено в едином стиле, для стилизации используется Material UI/(20 баллов)
 
-In the project directory, you can run:
+Технологии, использованные на проекте: 
 
-### `npm start`
+Сохранение и загрузка чего-либо с использованием Local storage (10 баллов)
+Использован RESTful API (30 баллов)
+Подключение и работа с БД (30 баллов)
+Аутентификация (20 баллов)
+Приложение отображает какую-либо таблицу, данные для которых получает от бекенда (20 баллов)
+Реализован nodejs и express (10 балов)
+Использован Redux (hooks, toolkit)(40 баллов)
+Использован TypeScript на бэке (40 баллов) 
+Использован Webpack (10 баллов)
+React (40 баллов) 
+nest js https://docs.nestjs.com/ (40 баллов) 
+mongoDB mongodb.com (40 баллов) 
+mongoose https://mongoosejs.com/ (40 баллов) 
+JWT https://jwt.io/ (40 баллов) 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
