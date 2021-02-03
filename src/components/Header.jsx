@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openMenu } from '../slices/appSlice';
 import { useHistory } from 'react-router-dom';
 import Box from "@material-ui/core/Box";
+import {logOut} from '../slices/appSlice'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -56,6 +57,12 @@ export default function Header() {
     history.push('/signIn');
   }
 
+  function logOutHandler(e) {
+    e.preventDefault(e);
+    history.push('/')
+    dispatch(logOut())
+  }
+
   let greetingText;
 
   if (isLogin) {
@@ -95,13 +102,19 @@ export default function Header() {
 
           }
           {!isLogin && (
-            <Button onClick={goToSignUp} color="inherit">
-              Sign Up
+            <React.Fragment>
+              <Button onClick={goToSignUp} color="inherit">
+                Sign Up
+              </Button>
+              <Button onClick={goToSignIn} color="inherit">
+                Sign In
+              </Button>
+            </React.Fragment>
+          ) ||
+            <Button onClick={logOutHandler} color="inherit">
+              Log Out
             </Button>
-          )}
-          <Button onClick={goToSignIn} color="inherit">
-            {isLogin ? 'Log Out' : 'Sign In'}
-          </Button>
+          }
         </Toolbar>
       </AppBar>
     </div>

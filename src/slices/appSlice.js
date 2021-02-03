@@ -1,12 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { path } from '../assets/path';
 
+const initialUser = {
+  name: {
+    firstName: '',
+      lastName: ''
+  },
+  manager: null,
+  email: null,
+}
+
 const initialState = {
   isMenuOpen: false,
   status: 'idle',
   error: null,
   isLogin: false,
-  user: {},
+  user: initialUser,
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
@@ -57,7 +66,12 @@ const appSlice = createSlice({
     finishLoading(state, action) {
       state.status = 'idle';
     },
-
+    logOut(state, action) {
+      state.user = initialUser
+      state.isLogin = false;
+      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
+    }
   },
   extraReducers: {
     [addUser.pending]: (state, action) => {
@@ -87,6 +101,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { openMenu, closeMenu, finishLoading } = appSlice.actions;
+export const { openMenu, closeMenu, finishLoading, logOut} = appSlice.actions;
 
 export default appSlice.reducer;
