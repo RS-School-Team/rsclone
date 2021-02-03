@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Tasks = () => {
   const dispatch = useDispatch();
+  const { _id } = useSelector((state) => state.app.user);
   const classes = useStyles();
   const { url, params } = useRouteMatch();
   const { manager } = useSelector((state) => state.app.user);
@@ -46,7 +47,7 @@ const Tasks = () => {
     });
   });
   useEffect(() => {
-    dispatch(fetchLists());
+    dispatch(fetchLists(id));
   }, []);
   return (
     <React.Fragment>

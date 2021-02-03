@@ -4,11 +4,11 @@ import { path } from '../assets/path';
 const initialUser = {
   name: {
     firstName: '',
-      lastName: ''
+    lastName: '',
   },
   manager: null,
   email: null,
-}
+};
 
 const initialState = {
   isMenuOpen: false,
@@ -20,8 +20,6 @@ const initialState = {
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
-  console.log(form);
-
   const response = await fetch(`${path}/auth/register`, {
     method: 'POST',
     body: JSON.stringify(form),
@@ -31,8 +29,6 @@ export const addUser = createAsyncThunk('app/addUser', async (form) => {
     redirect: 'follow',
   });
   const user = await response.json();
-  console.log(user);
-
   localStorage.setItem('token', user.token);
   sessionStorage.setItem('token', user.token);
   return user;
@@ -48,7 +44,6 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
     redirect: 'follow',
   });
   const user = await response.json();
-  console.log(user);
   localStorage.setItem('token', user.token);
   sessionStorage.setItem('token', user.token);
   return user;
@@ -68,12 +63,12 @@ const appSlice = createSlice({
       state.status = 'idle';
     },
     logOut(state, action) {
-      state.user = initialUser
+      state.user = initialUser;
       state.isLogin = false;
       state.token = '';
       localStorage.removeItem('token');
       sessionStorage.removeItem('token');
-    }
+    },
   },
   extraReducers: {
     [addUser.pending]: (state, action) => {
@@ -103,6 +98,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { openMenu, closeMenu, finishLoading, logOut} = appSlice.actions;
+export const { openMenu, closeMenu, finishLoading, logOut } = appSlice.actions;
 
 export default appSlice.reducer;

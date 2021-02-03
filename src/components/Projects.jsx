@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Projects = () => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.lists.lists);
+  const lists = useSelector((state) => state.app.user.projects);
   const classes = useStyles();
   return (
     <Grid container spacing={2} justify="center">
@@ -61,7 +61,7 @@ const Projects = () => {
             }}
           >
             <Card className={classes.root} variant="outlined">
-              <RouteLink key={list.id} to={`/project/${list.id}/tasks`}>
+              <RouteLink key={list.id} to={`/project/${list._id}/tasks`}>
                 <CardContent>
                   <Typography
                     variant="h5"
