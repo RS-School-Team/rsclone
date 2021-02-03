@@ -1,15 +1,15 @@
 import React from 'react';
 import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {useDispatch, useSelector} from 'react-redux';
-import {openMenu} from '../slices/appSlice';
-import {useHistory} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { openMenu } from '../slices/appSlice';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -45,23 +45,22 @@ export default function Header() {
   let history = useHistory();
 
   function goToSignUp(e) {
-    e.preventDefault(e)
-    history.push("/signUp");
+    e.preventDefault(e);
+    history.push('/signUp');
   }
 
   function goToSignIn(e) {
-    e.preventDefault(e)
-    history.push("/signIn");
+    e.preventDefault(e);
+    history.push('/signIn');
   }
 
-  let greetingText
+  let greetingText;
 
   if (isLogin) {
-    greetingText = "All Projects"
+    greetingText = 'All Projects';
   } else {
-    greetingText = "Please Sign In"
+    greetingText = 'Please Sign In';
   }
-
 
   return (
     <div>
@@ -85,17 +84,15 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             {greetingText}
           </Typography>
-          {isLogin &&
-            'HELLO WORD 42'
-          }
-          {!isLogin &&
-            <Button onClick = {goToSignUp} color="inherit">
+          {isLogin && 'HELLO WORD 42'}
+          {!isLogin && (
+            <Button onClick={goToSignUp} color="inherit">
               Sign Up
             </Button>
-          }
-            <Button onClick = {goToSignIn} color="inherit">
-              {isLogin ? 'Log Out' : 'Sign In'}
-            </Button>
+          )}
+          <Button onClick={goToSignIn} color="inherit">
+            {isLogin ? 'Log Out' : 'Sign In'}
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

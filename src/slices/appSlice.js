@@ -6,37 +6,39 @@ const initialState = {
   status: 'idle',
   error: null,
   isLogin: false,
-  user: {}
+  user: {},
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
-  console.log(1)
+  console.log(1);
   const response = await fetch(`${path}/auth/register`, {
     method: 'POST',
     body: form,
     headers: {
       'Content-Type': 'application/json',
     },
-    redirect: 'follow'
+    redirect: 'follow',
   });
-  console.log(2)
+  console.log(2);
   const user = await response.json();
-  localStorage.setItem('token', user.token)
-  sessionStorage.setItem('token', user.token)
+  localStorage.setItem('token', user.token);
+  sessionStorage.setItem('token', user.token);
   return user;
 });
 
 export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
-  const response = await fetch(`${path}/signIn`, {
+  const response = await fetch(`${path}/auth/login`, {
     method: 'POST',
-    body: form,
+    body: JSON.stringify(form),
     headers: {
       'Content-Type': 'application/json',
     },
-    mode: "no-cors"
+    redirect: 'follow',
   });
-  const list = await response.json();
-  return list;
+  const user = await response.json();
+  localStorage.setItem('token', user.token);
+  sessionStorage.setItem('token', user.token);
+  return user;
 });
 
 const appSlice = createSlice({
@@ -57,10 +59,10 @@ const appSlice = createSlice({
     [addUser.pending]: (state, action) => {
       state.status = 'loading';
       state.user = action.payload.user;
-      state.token = action.payload.token
+      state.token = action.payload.token;
     },
     [addUser.fulfilled]: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload);
       state.status = 'succeeded';
     },
     [addUser.rejected]: (state, action) => {
@@ -71,6 +73,8 @@ const appSlice = createSlice({
       state.status = 'loading';
     },
     [loginUser.fulfilled]: (state, action) => {
+      state.user = action.payload.user;
+      state.isLogin = true;
       state.status = 'succeeded';
     },
     [loginUser.rejected]: (state, action) => {

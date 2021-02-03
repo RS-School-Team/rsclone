@@ -7,6 +7,7 @@ import { Link as RouteLink, useRouteMatch } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import { fetchLists } from '../slices/listsSlice';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,7 @@ const Tasks = () => {
   const { url, params } = useRouteMatch();
   const isAdmin = useSelector((state) => state.app.isAdmin);
   const id = Number(params.id);
+  const history = useHistory();
   const [activeList] = useSelector((state) => {
     return state.lists.lists.filter((elem) => {
       return elem.id === Number(id);
@@ -88,12 +90,14 @@ const Tasks = () => {
           })}
           {isAdmin && (
             <Grid item>
-              <Card className={classes.addCard} variant="outlined">
-                <RouteLink to={`${url}/create-new-task`}>
-                  <IconButton size="medium" color="primary">
-                    <AddIcon className={classes.addCardBtn} />
-                  </IconButton>
-                </RouteLink>
+              <Card
+                className={classes.addCard}
+                variant="outlined"
+                onClick={() => history.push(`${url}/create-new-task`)}
+              >
+                <IconButton size="medium" color="primary">
+                  <AddIcon className={classes.addCardBtn} />
+                </IconButton>
               </Card>
             </Grid>
           )}

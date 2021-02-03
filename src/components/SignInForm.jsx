@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,11 +8,11 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {useHistory} from "react-router-dom";
-import {useDispatch} from 'react-redux';
-import {loginUser} from "../slices/appSlice";
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../slices/appSlice';
 
 function Copyright() {
   return (
@@ -26,8 +26,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -57,26 +55,30 @@ export default function SignIn() {
   const [values, setValues] = useState({});
 
   function goToSignUp(e) {
-    e.preventDefault(e)
-    history.push("/signUp");
+    e.preventDefault(e);
+    history.push('/signUp');
   }
 
   const handleChange = (event) => {
     event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    setValues((values) => ({
+      ...values,
+      [event.target.name]: event.target.value,
+    }));
   };
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    dispatch(loginUser(formData))
+    const formData = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    dispatch(loginUser(formData));
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline/>
+      <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
           Sign in
@@ -110,7 +112,7 @@ export default function SignIn() {
             value={values.password || ''}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary"/>}
+            control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
@@ -137,7 +139,7 @@ export default function SignIn() {
         </form>
       </div>
       <Box mt={8}>
-        <Copyright/>
+        <Copyright />
       </Box>
     </Container>
   );
