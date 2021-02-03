@@ -37,7 +37,7 @@ const Tasks = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { url, params } = useRouteMatch();
-  const isAdmin = useSelector((state) => state.app.isAdmin);
+  const { manager } = useSelector((state) => state.app.user);
   const id = Number(params.id);
   const history = useHistory();
   const [activeList] = useSelector((state) => {
@@ -88,7 +88,7 @@ const Tasks = () => {
               </Grid>
             );
           })}
-          {isAdmin && (
+          {manager && (
             <Grid item>
               <Card
                 className={classes.addCard}

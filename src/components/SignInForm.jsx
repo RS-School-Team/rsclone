@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../slices/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { finishLoading, loginUser } from '../slices/appSlice';
 
 function Copyright() {
   return (
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
   let history = useHistory();
-
+  const fetchStatus = useSelector((state) => state.app.status);
   const dispatch = useDispatch();
   const [values, setValues] = useState({});
 
@@ -75,6 +75,10 @@ export default function SignIn() {
     };
     dispatch(loginUser(formData));
   };
+  if (fetchStatus === 'succeeded' || fetchStatus === 'failed') {
+    dispatch(finishLoading());
+    history.push('/all_projects');
+  }
 
   return (
     <Container component="main" maxWidth="xs">

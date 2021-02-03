@@ -1,13 +1,24 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Card, CardActions, CardContent, Grid, IconButton, Typography,} from '@material-ui/core';
-import {Link as RouteLink} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
+import { Link as RouteLink } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import {tasksLoaded} from '../slices/tasksSlice';
-import {createListOpen, deleteListOpen, editListOpen} from '../slices/listsSlice';
-import {makeStyles} from '@material-ui/core/styles';
+import { tasksLoaded } from '../slices/tasksSlice';
+import {
+  createListOpen,
+  deleteListOpen,
+  editListOpen,
+} from '../slices/listsSlice';
+import { makeStyles } from '@material-ui/core/styles';
 import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
 const Projects = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.lists);
+  const { name, manager } = useSelector((state) => state.app.user);
+
   const classes = useStyles();
 
   return (
@@ -61,16 +74,20 @@ const Projects = () => {
                   >
                     {list.name}
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Tasks in this list:
-                  </Typography>
-                  <Typography variant="h6" gutterBottom>
-                    {list.tasks && list.tasks.length}
-                  </Typography>
+                  {manager && (
+                    <React.Fragment>
+                      <Typography variant="body2" color="textSecondary">
+                        Tasks in this list:
+                      </Typography>
+                      <Typography variant="h6" gutterBottom>
+                        {list.tasks && list.tasks.length}
+                      </Typography>
 
-                  <Typography variant="body2" color="textSecondary">
-                    Users doing this tasks: 0
-                  </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        Users doing this tasks: 0
+                      </Typography>
+                    </React.Fragment>
+                  )}
                 </CardContent>
               </RouteLink>
 

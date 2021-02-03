@@ -10,7 +10,6 @@ const initialState = {
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
-  console.log(1);
   const response = await fetch(`${path}/auth/register`, {
     method: 'POST',
     body: form,
@@ -19,7 +18,6 @@ export const addUser = createAsyncThunk('app/addUser', async (form) => {
     },
     redirect: 'follow',
   });
-  console.log(2);
   const user = await response.json();
   localStorage.setItem('token', user.token);
   sessionStorage.setItem('token', user.token);
@@ -36,6 +34,7 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
     redirect: 'follow',
   });
   const user = await response.json();
+  console.log(user);
   localStorage.setItem('token', user.token);
   sessionStorage.setItem('token', user.token);
   return user;

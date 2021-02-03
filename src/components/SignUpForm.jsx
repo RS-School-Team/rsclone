@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,14 +8,13 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux';
-import {addUser, finishLoading} from "../slices/appSlice";
-
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser, finishLoading } from '../slices/appSlice';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,18 +57,21 @@ const SignUpForm = () => {
   const fetchStatus = useSelector((state) => state.app.status);
 
   function goToSignIn(e) {
-    e.preventDefault()
-    history.push("/signIn");
+    e.preventDefault();
+    history.push('/signIn');
   }
 
   const handleChange = (event) => {
     event.persist();
-    setValues(values => ({...values, [event.target.name]: event.target.value}));
+    setValues((values) => ({
+      ...values,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let isTeacher = e.target.role.value === 'teacher'
+    let isTeacher = e.target.role.value === 'teacher';
     const formData = JSON.stringify({
       name: {
         firstName: e.target.firstName.value,
@@ -77,20 +79,20 @@ const SignUpForm = () => {
       },
       email: e.target.email.value,
       password: e.target.password.value,
-      manager: isTeacher
-    })
-    console.log('formData', formData)
-    dispatch(addUser(formData))
-  }
+      manager: isTeacher,
+    });
+    console.log('formData', formData);
+    dispatch(addUser(formData));
+  };
 
   if (fetchStatus === 'succeeded' || fetchStatus === 'failed') {
-    dispatch(finishLoading())
-    history.push("");
+    dispatch(finishLoading());
+    history.push('/all_projects');
   }
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline/>
+      <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
           Sign up
@@ -157,14 +159,14 @@ const SignUpForm = () => {
                 <FormControlLabel
                   name="role"
                   value="teacher"
-                  control={<Radio color="primary"/>}
+                  control={<Radio color="primary" />}
                   label="Teacher"
                   labelPlacement="start"
                 />
                 <FormControlLabel
                   name="role"
                   value="student"
-                  control={<Radio color="primary"/>}
+                  control={<Radio color="primary" />}
                   label="Student"
                   labelPlacement="start"
                 />
@@ -172,7 +174,7 @@ const SignUpForm = () => {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary"/>}
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
@@ -188,10 +190,7 @@ const SignUpForm = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link
-                href='#'
-                onClick={goToSignIn}
-                variant="body2">
+              <Link href="#" onClick={goToSignIn} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -199,10 +198,10 @@ const SignUpForm = () => {
         </form>
       </div>
       <Box mt={5}>
-        <Copyright/>
+        <Copyright />
       </Box>
     </Container>
-  )
-}
+  );
+};
 
 export default SignUpForm;
