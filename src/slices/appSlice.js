@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { path } from '../assets/path';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {path} from '../assets/path';
+
 
 const initialUser = {
   name: {
     firstName: '',
-      lastName: ''
+    lastName: ''
   },
   manager: null,
   email: null,
@@ -48,9 +49,8 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
     redirect: 'follow',
   });
   const user = await response.json();
-  console.log(user);
-  localStorage.setItem('token', user.token);
-  sessionStorage.setItem('token', user.token);
+  localStorage.setItem('user', JSON.stringify(user));
+  sessionStorage.setItem('user', JSON.stringify(user));
   return user;
 });
 
@@ -71,8 +71,12 @@ const appSlice = createSlice({
       state.user = initialUser
       state.isLogin = false;
       state.token = '';
-      localStorage.removeItem('token');
-      sessionStorage.removeItem('token');
+      localStorage.removeItem('user');
+      sessionStorage.removeItem('user');
+    },
+    localLogin(state, action) {
+      state.user = action.payload
+      state.isLogin = true
     }
   },
   extraReducers: {
@@ -103,6 +107,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { openMenu, closeMenu, finishLoading, logOut} = appSlice.actions;
+export const { openMenu, closeMenu, finishLoading, logOut, localLogin} = appSlice.actions;
 
 export default appSlice.reducer;
