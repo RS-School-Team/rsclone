@@ -9,6 +9,8 @@ const initialUser = {
   },
   manager: null,
   email: null,
+  _id: null,
+  project: [],
 };
 
 const initialState = {

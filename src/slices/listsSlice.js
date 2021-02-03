@@ -101,6 +101,9 @@ const listSlice = createSlice({
   name: 'lists',
   initialState,
   reducers: {
+    localList (state, action) {
+      state.lists = action.payload
+    },
     createListOpen(state, action) {
       state.isCreateListOpen = true;
     },
@@ -260,6 +263,7 @@ export const {
   deleteListOpen,
   deleteTaskOpen,
   deleteTaskClose,
+  localList,
 } = listSlice.actions;
 
 export default listSlice.reducer;

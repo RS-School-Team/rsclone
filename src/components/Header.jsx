@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {logOut, openMenu, localLogin} from '../slices/appSlice';
 import {useHistory} from 'react-router-dom';
 import Box from "@material-ui/core/Box";
+import {localList} from '../slices/listsSlice'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -41,10 +42,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   useEffect(() => {
     console.log(1)
-    const localUser = localStorage.getItem('user')
+    const localUser = JSON.parse(localStorage.getItem('user'))
+    let lists = []
+    if(localUser) {
+      lists = localUser.user.projects
+    }
     if (localUser) {
-      console.log(JSON.parse(localUser).user)
-      dispatch(localLogin(JSON.parse(localUser).user))
+      dispatch(localLogin(localUser.user))
+      dispatch(localList(lists))
     }
     console.log(2)
   },[])

@@ -47,11 +47,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Projects = () => {
   const dispatch = useDispatch();
-  const lists = useSelector((state) => state.app.user.projects);
+  // const lists = useSelector((state) => state.app.user.projects);
+  const lists = useSelector((state) => state.lists.lists);
   const classes = useStyles();
   return (
     <Grid container spacing={2} justify="center">
-      {lists.length &&
+      {lists && lists.length &&
         lists.map((list) => (
           <Grid
             item
