@@ -53,6 +53,7 @@ const appSlice = createSlice({
     finishLoading(state, action) {
       state.status = 'idle';
     },
+
   },
   extraReducers: {
     [addUser.pending]: (state, action) => {

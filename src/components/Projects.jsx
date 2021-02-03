@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
 const Projects = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.lists);
-  const { name, manager } = useSelector((state) => state.app.user);
+  // const { name, manager } = useSelector((state) => state.app.user);
+  const manager = false;
 
   const classes = useStyles();
 

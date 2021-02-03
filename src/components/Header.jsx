@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { openMenu } from '../slices/appSlice';
 import { useHistory } from 'react-router-dom';
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -41,6 +42,7 @@ export default function Header() {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   const isLogin = useSelector((state) => state.app.isLogin);
+  const firstName = useSelector((state) => state.app.user.name.firstName)
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -84,7 +86,14 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             {greetingText}
           </Typography>
-          {isLogin && 'HELLO WORD 42'}
+          {isLogin &&
+            <Box pr={5}>
+              <Typography variant="overline" component="h2" pr={3}>
+                {firstName}
+              </Typography>
+            </Box>
+
+          }
           {!isLogin && (
             <Button onClick={goToSignUp} color="inherit">
               Sign Up
