@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { path } from '../assets/path';
+import apiClient from '../client/client';
 
 const initialUser = {
   name: {
@@ -22,14 +23,13 @@ const initialState = {
 };
 
 export const addUser = createAsyncThunk('app/addUser', async (form) => {
-  const response = await fetch(`${path}/auth/register`, {
-    method: 'POST',
-    body: JSON.stringify(form),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-  });
+  const response = await apiClient(
+    '/auth/register',
+    'POST',
+    null,
+    JSON.stringify(form)
+  );
+
   const user = await response.json();
   localStorage.setItem('user', JSON.stringify(user));
   sessionStorage.setItem('user', JSON.stringify(user));
@@ -38,31 +38,27 @@ export const addUser = createAsyncThunk('app/addUser', async (form) => {
 });
 
 export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
-  const response = await fetch(`${path}/auth/login`, {
-    method: 'POST',
-    body: JSON.stringify(form),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-  });
-  const user = await response.json();
-  console.log(user);
-  localStorage.setItem('user', JSON.stringify(user));
-  sessionStorage.setItem('user', JSON.stringify(user));
-  return user;
+  try {
+    const response = await apiClient(
+      '/auth/login',
+      'POST',
+      null,
+      JSON.stringify(form)
+    );
+    const user = await response.json();
+    localStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
+    console.log(response.ok);
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 export const loginLocalUser = createAsyncThunk(
   'app/loginUser',
   async (token) => {
-    const response = await fetch(`${path}/users/my`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      redirect: 'follow',
-    });
+    const response = await apiClient('/users/my', 'GET', token);
     const newUser = await response.json();
     const user = {
       user: newUser,
@@ -116,12 +112,19 @@ const appSlice = createSlice({
       state.status = 'loading';
     },
     [loginUser.fulfilled]: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLogin = true;
+      console.log('succeded');
+      if (action.payload.statusCode) {
+        state.error = action.payload;
+      } else {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.error = null;
+        state.isLogin = true;
+      }
       state.status = 'succeeded';
     },
     [loginUser.rejected]: (state, action) => {
+      console.log('failed');
       state.status = 'failed';
       state.error = action.payload;
     },

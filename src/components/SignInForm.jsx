@@ -51,6 +51,7 @@ export default function SignIn() {
   const classes = useStyles();
   let history = useHistory();
   const fetchStatus = useSelector((state) => state.app.status);
+  const isError = useSelector((state) => state.app.error);
   const dispatch = useDispatch();
   const [values, setValues] = useState({});
 
@@ -75,10 +76,10 @@ export default function SignIn() {
     };
     dispatch(loginUser(formData));
   };
-  if (fetchStatus === 'succeeded' || fetchStatus === 'failed') {
-    dispatch(finishLoading());
 
+  if (fetchStatus === 'succeeded' && !isError) {
     history.push('/all_projects');
+    dispatch(finishLoading());
   }
 
   return (
@@ -86,7 +87,7 @@ export default function SignIn() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in
+          {(isError && 'Wrong login or password') || 'Log in'}
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
@@ -127,7 +128,7 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Log in
           </Button>
           <Grid container>
             <Grid item xs>
