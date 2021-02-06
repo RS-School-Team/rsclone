@@ -63,15 +63,15 @@ export const deleteList = createAsyncThunk(
 
 export const editList = createAsyncThunk(
   'lists/editLists',
-  async ({ title, id }) => {
-    const response = await fetch(`${path}/project/` + id, {
+  async ([{ title, id }, token]) => {
+    const response = await fetch(`${path}/project/${id}`, {
       method: 'PUT',
       body: JSON.stringify({
         name: title,
       }),
       headers: {
         'Content-Type': 'application/json',
-        //  Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return { title, id };
@@ -186,7 +186,7 @@ const listSlice = createSlice({
       state.status = 'succeeded';
       const { title, id } = action.payload;
       const newLists = state.lists.map((list) => {
-        if (list.id === id) {
+        if (list._id === id) {
           list.name = title;
         }
         return list;

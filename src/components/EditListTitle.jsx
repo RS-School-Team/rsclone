@@ -1,10 +1,18 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField,} from '@material-ui/core';
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {editList, editListClose} from '../slices/listsSlice';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from '@material-ui/core';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { editList, editListClose } from '../slices/listsSlice';
 
 const EditListTitle = () => {
   const isOpen = useSelector((state) => state.lists.isEditListOpen);
+  const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
   let [title, setTitle] = useState('');
   const editingList = useSelector((state) => state.lists.editingList);
@@ -15,7 +23,7 @@ const EditListTitle = () => {
   const onSaveListClicked = () => {
     if (title.trim()) {
       setTitle('');
-      dispatch(editList({ title: title.trim(), id: editingList.id }));
+      dispatch(editList([{ title: title.trim(), id: editingList._id }, token]));
       dispatch(editListClose());
     }
   };
