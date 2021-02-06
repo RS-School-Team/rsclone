@@ -33,6 +33,7 @@ export const addUser = createAsyncThunk('app/addUser', async (form) => {
   const user = await response.json();
   localStorage.setItem('user', JSON.stringify(user));
   sessionStorage.setItem('user', JSON.stringify(user));
+
   return user;
 });
 
@@ -46,6 +47,7 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
     redirect: 'follow',
   });
   const user = await response.json();
+  console.log(user);
   localStorage.setItem('user', JSON.stringify(user));
   sessionStorage.setItem('user', JSON.stringify(user));
   return user;
@@ -61,7 +63,11 @@ export const loginLocalUser = createAsyncThunk(
       },
       redirect: 'follow',
     });
-    const user = await response.json();
+    const newUser = await response.json();
+    const user = {
+      user: newUser,
+      token: token,
+    };
     localStorage.setItem('user', JSON.stringify(user));
     sessionStorage.setItem('user', JSON.stringify(user));
     return user;

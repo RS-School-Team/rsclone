@@ -42,21 +42,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainContent = () => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-  // useEffect(() => {
-  //   const localUser = JSON.parse(localStorage.getItem('user'));
-  //   let lists = [];
-  //   if (localUser) {
-  //     lists = localUser.user.projects;
-  //   }
-  //   if (localUser) {
-  //     dispatch(localLogin(localUser.user));
-  //     dispatch(localList(lists));
-  //     dispatch(loginLocalUser(localUser.token));
-  //     history.push('/all_projects');
-  //   }
-  // }, []);
+  const isLogin = useSelector((state) => state.app.isLogin);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const hasToken = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    if (user && user.token) {
+      const { token } = user;
+      console.log(token);
+
+      return token;
+    }
+  };
+  const token = hasToken();
+  useEffect(() => {
+    if (!isLogin && token) {
+      dispatch(loginLocalUser(token));
+      history.push('/all_projects');
+    }
+  }, []);
   const status = useSelector((state) => state.lists.status);
   const loginStatus = useSelector((state) => state.app.status);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
