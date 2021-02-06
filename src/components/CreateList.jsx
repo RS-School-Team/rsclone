@@ -13,6 +13,7 @@ import { addList, createListClose } from '../slices/listsSlice';
 
 const CreateList = () => {
   const isOpen = useSelector((state) => state.lists.isCreateListOpen);
+  const token = useSelector((state) => state.app.token);
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const { _id } = useSelector((state) => state.app.user);
@@ -22,7 +23,7 @@ const CreateList = () => {
   const onSaveListClicked = () => {
     if (title.trim()) {
       setTitle('');
-      dispatch(addList({ name: title.trim(), managerID: _id }));
+      dispatch(addList([{ name: title.trim(), managerID: _id }, token]));
       dispatch(createListClose());
     }
   };

@@ -77,6 +77,7 @@ export default function SignIn() {
   };
   if (fetchStatus === 'succeeded' || fetchStatus === 'failed') {
     dispatch(finishLoading());
+
     history.push('/all_projects');
   }
 

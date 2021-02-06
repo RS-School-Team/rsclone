@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Card,
@@ -17,6 +17,7 @@ import {
   createListOpen,
   deleteListOpen,
   editListOpen,
+  fetchLists,
 } from '../slices/listsSlice';
 import { makeStyles } from '@material-ui/core/styles';
 import CommentIcon from '@material-ui/icons/Comment';
@@ -47,12 +48,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Projects = () => {
   const dispatch = useDispatch();
-  // const lists = useSelector((state) => state.app.user.projects);
+  const user = useSelector((state) => state.app.user);
+  const token = useSelector((state) => state.app.token);
+
+  useEffect(() => {
+    dispatch(fetchLists([token, user._id]));
+  }, []);
   const lists = useSelector((state) => state.lists.lists);
   const classes = useStyles();
   return (
     <Grid container spacing={2} justify="center">
-      {lists && lists.length &&
+      {lists &&
+        lists.length &&
         lists.map((list) => (
           <Grid
             item
@@ -62,7 +69,7 @@ const Projects = () => {
             }}
           >
             <Card className={classes.root} variant="outlined">
-              <RouteLink key={list.id} to={`/project/${list._id}/tasks`}>
+              <RouteLink key={list._id} to={`/project/${list._id}/tasks`}>
                 <CardContent>
                   <Typography
                     variant="h5"

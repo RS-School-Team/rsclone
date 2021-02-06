@@ -1,22 +1,19 @@
 import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
-import { Route, Switch } from 'react-router-dom';
 import clsx from 'clsx';
-import CreateList from './CreateList';
-import Tasks from './Tasks';
-import EditListTitle from './EditListTitle';
+import CreateList from '../CreateList';
+import EditListTitle from '../EditListTitle';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import Projects from './Projects';
-import DeleteListDialog from './DeleteListDialog';
-import SignUpForm from './SignUpForm';
-import Task from './Task';
-import CreateNewTask from './CreateNewTask';
-import EditTask from './EditTask';
-import { fetchLists } from '../slices/listsSlice';
-import LoadingSpinner from '../elements/spinner/spinner';
-import SignInForm from './SignInForm';
-import Students from './Students';
+import DeleteListDialog from '../DeleteListDialog';
+
+import { fetchLists } from '../../slices/listsSlice';
+import LoadingSpinner from '../../elements/spinner/spinner';
+
+import SwitchRouter from './Router/SwtchRouter';
+import { localList } from '../../slices/listsSlice';
+import { localLogin, loginLocalUser } from '../../slices/appSlice';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   drawerHeader: {
@@ -45,15 +42,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainContent = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchLists());
-  }, []);
+  // const dispatch = useDispatch();
+  // const history = useHistory();
+  // useEffect(() => {
+  //   const localUser = JSON.parse(localStorage.getItem('user'));
+  //   let lists = [];
+  //   if (localUser) {
+  //     lists = localUser.user.projects;
+  //   }
+  //   if (localUser) {
+  //     dispatch(localLogin(localUser.user));
+  //     dispatch(localList(lists));
+  //     dispatch(loginLocalUser(localUser.token));
+  //     history.push('/all_projects');
+  //   }
+  // }, []);
   const status = useSelector((state) => state.lists.status);
   const loginStatus = useSelector((state) => state.app.status);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
-  useEffect(() => {});
   return (
     <Box p={2} overflow="auto" height="94vh">
       <main
@@ -65,24 +72,7 @@ const MainContent = () => {
           <LoadingSpinner />
         )}
         <div className={classes.drawerHeader} />
-        <Switch>
-          <Route exact path="/all_projects" component={Projects} />
-          <Route exact path="/project/:id/tasks" component={Tasks} />
-          <Route
-            exact
-            path="/project/:id/tasks/create-new-task"
-            component={CreateNewTask}
-          />
-          <Route exact path="/project/:_id/tasks/:id" component={Task} />
-          <Route
-            exact
-            path="/project/:id/tasks/:id/edit"
-            component={EditTask}
-          />
-          <Route exact path="/students" component={Students} />
-          <Route exact path="/signUp" component={SignUpForm} />
-          <Route exact path="/signIn" component={SignInForm} />
-        </Switch>
+        <SwitchRouter />
         <CreateList />
         <EditListTitle />
         <DeleteListDialog />

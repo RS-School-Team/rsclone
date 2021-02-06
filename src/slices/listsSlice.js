@@ -14,46 +14,64 @@ const initialState = {
   deletingTask: {},
 };
 
-export const addList = createAsyncThunk('lists/addList', async (project) => {
-  const response = await fetch(`${path}/project`, {
-    method: 'POST',
-    body: JSON.stringify(project),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-  });
-  const list = await response.json();
-  console.log(list);
-  return list;
-});
+export const addList = createAsyncThunk(
+  'lists/addList',
+  async ([project, token]) => {
+    const response = await fetch(`${path}/project`, {
+      method: 'POST',
+      body: JSON.stringify(project),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      redirect: 'follow',
+    });
+    const list = await response.json();
+    console.log(list);
+    return list;
+  }
+);
 
-export const fetchLists = createAsyncThunk('lists/fetchLists', async (id) => {
-  const response = await fetch(`${path}/project`, {
-    method: 'GET',
-    body: JSON.stringify({ managerID: id }),
-  });
-  const data = await response.json();
-  return data;
-});
+export const fetchLists = createAsyncThunk(
+  'lists/fetchLists',
+  async ([token, id]) => {
+    const response = await fetch(`${path}/project`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    return data;
+  }
+);
 
-export const deleteList = createAsyncThunk('lists/deleteLists', async (id) => {
-  const response = await fetch('http://localhost:3005/lists/' + id, {
-    method: 'DELETE',
-  });
-  return id;
-});
+export const deleteList = createAsyncThunk(
+  'lists/deleteLists',
+  async ([id, token]) => {
+    const response = await fetch(`${path}/project/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return id;
+  }
+);
 
 export const editList = createAsyncThunk(
   'lists/editLists',
   async ({ title, id }) => {
-    const response = await fetch('http://localhost:3005/lists/' + id, {
-      method: 'PATCH',
+    const response = await fetch(`${path}/project/` + id, {
+      method: 'PUT',
       body: JSON.stringify({
         name: title,
       }),
       headers: {
         'Content-Type': 'application/json',
+        //  Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
     return { title, id };
@@ -101,8 +119,8 @@ const listSlice = createSlice({
   name: 'lists',
   initialState,
   reducers: {
-    localList (state, action) {
-      state.lists = action.payload
+    localList(state, action) {
+      state.lists = action.payload;
     },
     createListOpen(state, action) {
       state.isCreateListOpen = true;
@@ -145,6 +163,7 @@ const listSlice = createSlice({
     },
     [fetchLists.rejected]: (state, action) => {
       state.status = 'failed';
+      console.log(action.payload);
       state.error = action.payload;
     },
     [deleteList.pending]: (state, action) => {
@@ -153,8 +172,8 @@ const listSlice = createSlice({
     [deleteList.fulfilled]: (state, action) => {
       state.status = 'succeeded';
       const id = action.payload;
-      const newLists = state.lists.filter((list) => list.id !== Number(id));
-      state.lists = newLists;
+      const newLists = state.lists.filter((list) => list._id !== id);
+      state.lists = [...newLists];
     },
     [deleteList.rejected]: (state, action) => {
       state.status = 'failed';

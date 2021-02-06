@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {useDispatch, useSelector} from 'react-redux';
-import {logOut, openMenu, localLogin} from '../slices/appSlice';
-import {useHistory} from 'react-router-dom';
-import Box from "@material-ui/core/Box";
-import {localList} from '../slices/listsSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut, openMenu } from '../slices/appSlice';
+import { useHistory } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -40,29 +39,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
-  useEffect(() => {
-    console.log(1)
-    const localUser = JSON.parse(localStorage.getItem('user'))
-    let lists = []
-    if(localUser) {
-      lists = localUser.user.projects
-    }
-    if (localUser) {
-      dispatch(localLogin(localUser.user))
-      dispatch(localList(lists))
-    }
-    console.log(2)
-  },[])
-
-
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   const isLogin = useSelector((state) => state.app.isLogin);
-  const firstName = useSelector((state) => state.app.user.name.firstName)
+  const firstName = useSelector((state) => state.app.user.name.firstName);
 
   const dispatch = useDispatch();
   let history = useHistory();
-
 
   function goToSignUp(e) {
     e.preventDefault(e);
@@ -76,8 +59,8 @@ export default function Header() {
 
   function logOutHandler(e) {
     e.preventDefault(e);
-    history.push('/')
-    dispatch(logOut())
+    history.push('/');
+    dispatch(logOut());
   }
 
   let greetingText;
@@ -90,7 +73,6 @@ export default function Header() {
 
   return (
     <div>
-      {console.log(isLogin)}
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -111,15 +93,14 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             {greetingText}
           </Typography>
-          {isLogin &&
+          {isLogin && (
             <Box pr={5}>
               <Typography variant="overline" component="h2" pr={3}>
                 {firstName}
               </Typography>
             </Box>
-
-          }
-          {!isLogin && (
+          )}
+          {(!isLogin && (
             <React.Fragment>
               <Button onClick={goToSignUp} color="inherit">
                 Sign Up
@@ -128,11 +109,11 @@ export default function Header() {
                 Sign In
               </Button>
             </React.Fragment>
-          ) ||
+          )) || (
             <Button onClick={logOutHandler} color="inherit">
               Log Out
             </Button>
-          }
+          )}
         </Toolbar>
       </AppBar>
     </div>

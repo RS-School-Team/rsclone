@@ -1,6 +1,5 @@
 import React from 'react';
 import { Divider, Drawer, IconButton, List, ListItem } from '@material-ui/core';
-import { Link as RouteLink } from 'react-router-dom';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
