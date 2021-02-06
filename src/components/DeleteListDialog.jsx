@@ -1,16 +1,23 @@
-import {Button, Dialog, DialogActions, DialogContent, DialogTitle,} from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from '@material-ui/core';
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteList, deleteListClose} from '../slices/listsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteList, deleteListClose } from '../slices/listsSlice';
 
 const DeleteListDialog = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.app.token);
   const isOpen = useSelector((state) => state.lists.isDeleteListOpen);
   const lists = useSelector((state) => state.lists.lists);
-  const { id, name } = useSelector((state) => state.lists.deletingList);
-  const handleDelete = (id, lists) => {
+  const { _id: id, name } = useSelector((state) => state.lists.deletingList);
+  const handleDelete = (id) => {
     dispatch(deleteListClose());
-    dispatch(deleteList(id, lists));
+    dispatch(deleteList([id, token]));
   };
   return (
     <Dialog
