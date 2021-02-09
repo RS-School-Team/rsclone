@@ -52,9 +52,9 @@ export default function SignIn() {
   let history = useHistory();
   const fetchStatus = useSelector((state) => state.app.status);
   const isError = useSelector((state) => state.app.error);
+  const user = useSelector((state) => state.app.user);
   const dispatch = useDispatch();
   const [values, setValues] = useState({});
-
   function goToSignUp(e) {
     e.preventDefault(e);
     history.push('/signUp');
@@ -78,7 +78,11 @@ export default function SignIn() {
   };
 
   if (fetchStatus === 'succeeded' && !isError) {
-    history.push('/all_projects');
+    if (user.manager) {
+      history.push('/all_projects');
+    } else {
+      history.push('/all_processes');
+    }
     dispatch(finishLoading());
   }
 

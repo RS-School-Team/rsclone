@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { path } from '../assets/path';
 import apiClient from '../client/client';
 
 const initialUser = {
@@ -48,11 +47,8 @@ export const loginUser = createAsyncThunk('app/loginUser', async (form) => {
     const user = await response.json();
     localStorage.setItem('user', JSON.stringify(user));
     sessionStorage.setItem('user', JSON.stringify(user));
-    console.log(response.ok);
     return user;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 });
 
 export const loginLocalUser = createAsyncThunk(
@@ -112,9 +108,9 @@ const appSlice = createSlice({
       state.status = 'loading';
     },
     [loginUser.fulfilled]: (state, action) => {
-      console.log('succeded');
       if (action.payload.statusCode) {
         state.error = action.payload;
+        state.isLogin = false;
       } else {
         state.user = action.payload.user;
         state.token = action.payload.token;
@@ -124,7 +120,6 @@ const appSlice = createSlice({
       state.status = 'succeeded';
     },
     [loginUser.rejected]: (state, action) => {
-      console.log('failed');
       state.status = 'failed';
       state.error = action.payload;
     },

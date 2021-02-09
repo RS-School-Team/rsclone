@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { path } from '../assets/path';
+import apiClient from '../client/client';
 
 const initialState = {
   lists: [],
@@ -17,15 +17,13 @@ const initialState = {
 export const addList = createAsyncThunk(
   'lists/addList',
   async ([project, token]) => {
-    const response = await fetch(`${path}/project`, {
-      method: 'POST',
-      body: JSON.stringify(project),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      redirect: 'follow',
-    });
+    const response = await apiClient(
+      '/project',
+      'POST',
+      token,
+      JSON.stringify(project)
+    );
+
     const list = await response.json();
     console.log(list);
     return list;
@@ -34,14 +32,8 @@ export const addList = createAsyncThunk(
 
 export const fetchLists = createAsyncThunk(
   'lists/fetchLists',
-  async ([token, id]) => {
-    const response = await fetch(`${path}/project`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+  async (token) => {
+    const response = await apiClient('/project', 'GET', token);
     const data = await response.json();
     return data;
   }
@@ -50,13 +42,7 @@ export const fetchLists = createAsyncThunk(
 export const deleteList = createAsyncThunk(
   'lists/deleteLists',
   async ([id, token]) => {
-    const response = await fetch(`${path}/project/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await apiClient(`/project/${id}`, 'DELETE', token);
     return id;
   }
 );
@@ -64,16 +50,15 @@ export const deleteList = createAsyncThunk(
 export const editList = createAsyncThunk(
   'lists/editLists',
   async ([{ title, id }, token]) => {
-    const response = await fetch(`${path}/project/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
+    const response = await apiClient(
+      `/project/${id}`,
+      'PUT',
+      token,
+      JSON.stringify({
         name: title,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      })
+    );
+
     return { title, id };
   }
 );

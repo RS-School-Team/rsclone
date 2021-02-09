@@ -52,13 +52,14 @@ const Projects = () => {
   const token = useSelector((state) => state.app.token);
 
   useEffect(() => {
-    dispatch(fetchLists([token, user._id]));
+    dispatch(fetchLists(token));
   }, []);
   const lists = useSelector((state) => state.lists.lists);
+
   const classes = useStyles();
   return (
     <Grid container spacing={2} justify="center">
-      {lists &&
+      {(lists &&
         lists.length &&
         lists.map((list) => (
           <Grid
@@ -93,25 +94,28 @@ const Projects = () => {
               </RouteLink>
 
               <CardActions disableSpacing>
-                <IconButton
-                  size="medium"
-                  aria-label="edit"
-                  color="primary"
-                  onClick={() => {
-                    dispatch(editListOpen(list, lists));
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  aria-label="delete"
-                  onClick={() => {
-                    dispatch(deleteListOpen(list));
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
+                <React.Fragment>
+                  <IconButton
+                    size="medium"
+                    aria-label="edit"
+                    color="primary"
+                    onClick={() => {
+                      dispatch(editListOpen(list, lists));
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    size="medium"
+                    aria-label="delete"
+                    onClick={() => {
+                      dispatch(deleteListOpen(list));
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </React.Fragment>
+
                 <IconButton
                   size="medium"
                   aria-label="messages"
@@ -122,7 +126,8 @@ const Projects = () => {
               </CardActions>
             </Card>
           </Grid>
-        ))}
+        ))) ||
+        ''}
       <Grid item>
         <Card
           className={classes.addCard}

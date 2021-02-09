@@ -10,6 +10,8 @@ import EditTask from '../../EditTask';
 import Projects from '../../Projects';
 import Tasks from '../../Tasks';
 import { useSelector } from 'react-redux';
+import StudentsProcesses from '../../StudentsProcesses';
+import TeachersList from '../../TeachersList';
 
 const SwitchRouter = () => {
   const isLogin = useSelector((state) => state.app.isLogin);
@@ -21,6 +23,8 @@ const SwitchRouter = () => {
       {isLogin && (
         <React.Fragment>
           <Route exact path="/all_projects" component={Projects} />
+          <Route exact path="/all_processes" component={StudentsProcesses} />
+          <Route exact path="/teachers_list" component={TeachersList} />
           <Route exact path="/project/:id/tasks" component={Tasks} />
           <Route
             exact
