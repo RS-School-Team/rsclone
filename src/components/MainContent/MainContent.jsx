@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import clsx from 'clsx';
 import CreateList from '../CreateList';
 import EditListTitle from '../EditListTitle';
@@ -7,10 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteListDialog from '../DeleteListDialog';
 
-import { fetchLists } from '../../slices/listsSlice';
 import LoadingSpinner from '../../elements/spinner/spinner';
 
-import SwitchRouter from './Router/SwtchRouter';
+import SwitchRouter from './Router/SwitchRouter';
 import { localList } from '../../slices/listsSlice';
 import { localLogin, loginLocalUser } from '../../slices/appSlice';
 import { useHistory } from 'react-router-dom';
@@ -43,26 +42,32 @@ const useStyles = makeStyles((theme) => ({
 
 const MainContent = () => {
   const isLogin = useSelector((state) => state.app.isLogin);
+  const status = useSelector((state) => state.app.status);
   const dispatch = useDispatch();
   const history = useHistory();
-  const hasToken = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
-    if (user && user.token) {
-      const { token } = user;
-      console.log(token);
 
-      return token;
+  const hasToken = () => {
+    const userLocal = JSON.parse(localStorage.getItem('user'));
+    if (userLocal && userLocal.token) {
+      const { token, user } = userLocal;
+      return { token, user };
     }
   };
-  const token = hasToken();
+
   useEffect(() => {
-    if (!isLogin && token) {
+    if (!isLogin && hasToken()) {
+      const { token, user } = hasToken();
       dispatch(loginLocalUser(token));
-      history.push('/all_projects');
+
+      if (user.statusCode === 401) {
+        history.push('/signIn');
+      } else if (user.manager && history.location.pathname === '/signIn') {
+        history.push('/all_projects');
+      } else if (!user.manager && history.location.pathname === '/signIn') {
+        history.push('/all_processes');
+      }
     }
   }, []);
-  const status = useSelector((state) => state.lists.status);
   const loginStatus = useSelector((state) => state.app.status);
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
@@ -76,6 +81,7 @@ const MainContent = () => {
         {(status === 'loading' || loginStatus === 'loading') && (
           <LoadingSpinner />
         )}
+
         <div className={classes.drawerHeader} />
         <SwitchRouter />
         <CreateList />
