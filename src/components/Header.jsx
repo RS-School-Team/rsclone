@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    background: `linear-gradient(45deg, #03a9f4 10%, #2196f3 90%)`,
   },
   appBarShift: {
     width: `calc(100% - 320px)`,
@@ -42,7 +43,7 @@ export default function Header() {
   const isMenuOpen = useSelector((state) => state.app.isMenuOpen);
   const classes = useStyles();
   const isLogin = useSelector((state) => state.app.isLogin);
-  //const firstName = useSelector((state) => state.app.user.name.firstName);
+  const user = useSelector((state) => state.app.user);
 
   const dispatch = useDispatch();
   let history = useHistory();
@@ -72,7 +73,7 @@ export default function Header() {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -93,11 +94,10 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             {greetingText}
           </Typography>
-          {isLogin && (
+          {isLogin && user.name && (
             <Box pr={5}>
               <Typography variant="overline" component="h2" pr={3}>
-                name greeting
-                {/* {firstName} */}
+                {user.name.firstName}
               </Typography>
             </Box>
           )}
@@ -117,6 +117,6 @@ export default function Header() {
           )}
         </Toolbar>
       </AppBar>
-    </div>
+    </React.Fragment>
   );
 }

@@ -7,19 +7,17 @@ import {
   CardHeader,
   Grid,
   IconButton,
-  InputLabel,
   Select,
   Typography,
 } from '@material-ui/core';
 import { Link as RouteLink, useHistory } from 'react-router-dom';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+
 import AddIcon from '@material-ui/icons/Add';
 import { tasksLoaded } from '../slices/tasksSlice';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CommentIcon from '@material-ui/icons/Comment';
-import { fetchOrders, fetchTeachers } from '../slices/ordersSlice';
+import { changeSort, fetchOrders } from '../slices/ordersSlice';
 import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,23 +56,31 @@ const StudentsProcesses = () => {
   useEffect(() => {
     dispatch(fetchOrders(token));
   }, []);
-  const lists = useSelector((state) => state.orders.orders);
-
+  const lists = useSelector((state) =>
+    state.orders.orders.filter((order) => order.status === 'active')
+  );
   const classes = useStyles();
+  // const activeSort = useSelector((state) => state.orders.activeSort);
+
+  // const sortingTypes = ['active', 'pending', 'declined', 'archive'];
+  // const handleChange = (e) => {
+  //   dispatch(changeSort(e.target.value));
+  // };
   return (
     <React.Fragment>
       {/* <FormControl variant="outlined">
         <Select
           native
           inputProps={{
-            name: 'age',
+            name: 'sort-teachers',
             id: 'select-sort-teachers',
           }}
+          onChange={handleChange}
+          style={{ marginBottom: '1ch' }}
         >
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
-          <option value={30}>Thirty</option>
+          {sortingTypes.map((type) => (
+            <option value={type}>{type}</option>
+          ))}
         </Select>
       </FormControl> */}
       <Grid container spacing={2} justify="center">

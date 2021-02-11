@@ -4,10 +4,11 @@ import apiClient from '../client/client';
 const initialState = {
   orders: [],
   teachers: [],
+  activeSort: 'accepted',
   // pendingOrders: [],
-  // acceptedOrders:[],
+  // acceptedOrders: [],
   // declinedOrders: [],
-  // archivedOrders:[]
+  // archivedOrders: [],
 };
 export const fetchTeachers = createAsyncThunk(
   'orders/fetchTeachers',
@@ -39,23 +40,29 @@ export const createOrder = createAsyncThunk(
   }
 );
 
+export const updateOrderStatus = createAsyncThunk(
+  'orders/updateOrderStatus',
+  async ([orderID, token, status]) => {
+    const response = await apiClient(
+      `/order/${orderID}`,
+      'PUT',
+      token,
+      JSON.stringify({
+        status,
+      })
+    );
+    const order = await response.json();
+    console.log(order);
+    return order;
+  }
+);
+
 const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    openMenu(state, action) {
-      state.isMenuOpen = true;
-    },
-    closeMenu(state, action) {
-      state.isMenuOpen = false;
-    },
-    finishLoading(state, action) {
-      state.status = 'idle';
-    },
-
-    localLogin(state, action) {
-      state.user = action.payload;
-      state.isLogin = true;
+    changeSort(state, action) {
+      state.activeSort = action.payload;
     },
   },
   extraReducers: {
@@ -74,7 +81,6 @@ const orderSlice = createSlice({
       state.status = 'loading';
     },
     [fetchTeachers.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.teachers = action.payload;
       state.status = 'succeeded';
     },
@@ -93,9 +99,25 @@ const orderSlice = createSlice({
       state.status = 'failed';
       state.error = action.payload;
     },
+    [updateOrderStatus.pending]: (state, action) => {
+      state.status = 'loading';
+    },
+    [updateOrderStatus.fulfilled]: (state, action) => {
+      state.orders = state.orders.map((order) => {
+        if (order._id === action.payload._id) {
+          order.status = action.payload.status;
+        }
+        return order;
+      });
+      state.status = 'succeeded';
+    },
+    [updateOrderStatus.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
   },
 });
 
-export const { openMenu } = orderSlice.actions;
+export const { changeSort } = orderSlice.actions;
 
 export default orderSlice.reducer;
