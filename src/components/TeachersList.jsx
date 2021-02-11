@@ -16,7 +16,6 @@ const TeachersList = () => {
   const token = useSelector((state) => state.app.token);
   const teachers = useSelector((state) => state.orders.teachers);
   const history = useHistory();
-
   useEffect(() => {
     dispatch(fetchTeachers(token));
   }, []);

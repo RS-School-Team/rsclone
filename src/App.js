@@ -4,17 +4,27 @@ import MainContent from './components/MainContent/MainContent.jsx';
 import Sidebar from './components/SideBar';
 import Header from './components/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { blue } from '@material-ui/core/colors';
 
 function App() {
+  const theme = createMuiTheme({
+    palette: {
+      primary: blue,
+    },
+  });
+  console.log(theme);
   return (
-    <Router>
-      <Container maxWidth="xl" className="todo" style={{ height: '100vh' }}>
-        <MainContent />
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Container maxWidth="xl" className="todo" style={{ height: '100vh' }}>
+          <MainContent />
 
-        <Header />
-        <Sidebar />
-      </Container>
-    </Router>
+          <Header />
+          <Sidebar />
+        </Container>
+      </Router>
+    </ThemeProvider>
   );
 }
 

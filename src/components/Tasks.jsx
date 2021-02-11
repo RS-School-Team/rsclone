@@ -46,9 +46,7 @@ const Tasks = () => {
       return elem.id === Number(id);
     });
   });
-  // useEffect(() => {
-  //   dispatch(fetchLists(id));
-  // }, []);
+
   return (
     <React.Fragment>
       <Typography
