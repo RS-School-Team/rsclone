@@ -2,7 +2,7 @@
 1. Task: https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md;
 2. Screenshot: 
 ![Иллюстрация к проекту](https://i.ibb.co/JQ0zRJV/123124.jpg)
-3. Deploy: 
+3. Deploy: https://rs-scholl-team-rsclone.netlify.app/
 4. Done 03.02.2021 / deadline 03.02.2021
 5. Score: 320
 Фичи:
